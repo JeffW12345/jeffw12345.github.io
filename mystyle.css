@@ -1,12 +1,12 @@
 body {background-color: black;}
 
 #title-container{
-		width: 80%;
-		margin: 0 auto;
+		width: 100%;
+		text-align: center;
 }
 
 .title-name{font-family: verdana;
-		font-size: 100px;}
+		font-size: 110px;}
 
 #title-word-one{color: red;}
 
@@ -19,21 +19,52 @@ body {background-color: black;}
 .canvas {
    background-color: red;
    position: static;
-   width: 980px;
-   height: 980px;
+   width: 738px;
+   height: 738px;
    margin-left: 100px;
-   margin-top: 30px;
+   margin-top: 10px;
    border: 1px white solid;
-  display: flex;
-  background-color: DodgerBlue;
-  flex-wrap: wrap;
+   display: flex;
+   background-color: black;
+   flex-wrap: wrap;
+   float:left;
 }
 
 .square {
    background-color: white;
    position: relative;
-   width: 100px;
-   height: 100px;
-   margin: 10px;
+   width: 75px;
+   height: 75px;
+   margin-left: 7.5px;
+   margin-right: 7.5px;
+   margin-top: 7.5px;
+   margin-bottom: 7.5px;
    border: 1px white solid;
+}
+
+.gold-circle{
+     width: 75px;
+     height: 75px;
+     background: gold;
+     border-radius: 50%
+    }
+.green-circle{
+     width: 75px;
+     height: 75px;
+     background: lime;
+     border-radius: 50%
+    }
+.red-circle{
+     width: 75px;
+     height: 75px;
+     background: red;
+     border-radius: 50%
+    }
+footer {
+  margin-top: 47rem;
+  text-align: left;
+  font-size: 15px;
+  font-family: tahoma;
+  color: white;
+  font-style: italic
 }
