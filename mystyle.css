@@ -1,0 +1,39 @@
+body {background-color: black;}
+
+#title-container{
+		width: 80%;
+		margin: 0 auto;
+}
+
+.title-name{font-family: verdana;
+		font-size: 100px;}
+
+#title-word-one{color: red;}
+
+#title-word-two{color: lime;}
+
+#title-word-three{color: gold;}
+				
+#title-word-four{color: white;font-family: comic-sans;font-size: 130px;}
+
+.canvas {
+   background-color: red;
+   position: static;
+   width: 980px;
+   height: 980px;
+   margin-left: 100px;
+   margin-top: 30px;
+   border: 1px white solid;
+  display: flex;
+  background-color: DodgerBlue;
+  flex-wrap: wrap;
+}
+
+.square {
+   background-color: white;
+   position: relative;
+   width: 100px;
+   height: 100px;
+   margin: 10px;
+   border: 1px white solid;
+}
