@@ -8,10 +8,15 @@ awaitNewGameInstruction(){
 startGame(){
 	createBoard();
 	var gameInProgress = true;
-	var timeAtStart = new Date.now();
-	while gameInProgress == true{};//TBC
+	var lastTimeRecorded = new Date.now();
+	while gameInProgress == true{
+		currentTime = new Date.now()
+		if(currentTime <  lastTimeRecorded + 500) {continue;}  // Has half a second passed since the last loop?
+	};//TBC
 }
 
-playerEliminated(){} //TBC
+function playerEliminated(){;} //TBC
 
-newGameClicked(); //TBC
+function newGameClicked(){;}//TBC
+
+function newRedCircleObject(){;}
