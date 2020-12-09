@@ -66,5 +66,14 @@ footer {
   font-size: 15px;
   font-family: tahoma;
   color: white;
-  font-style: italic
+  font-style: italic;
+  color: aqua;
 }
+
+a:link {
+  color: aqua;
+}
+a:visited {
+  color: aqua;
+}
+
