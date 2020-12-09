@@ -3,7 +3,6 @@ var board = ["green","empty","empty","empty","empty","empty","empty","empty","em
 "empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty", "empty",
 "empty","empty","empty","empty","empty","empty","empty","red","empty","empty","empty","empty","empty","empty","red"]
 
-let a = 1
 board.forEach(myFunction)
 
 function myFunction(item) {
