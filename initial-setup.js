@@ -3,9 +3,10 @@ var board = ["green","empty","empty","empty","empty","empty","empty","empty","em
 "empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty", "empty",
 "empty","empty","empty","empty","empty","empty","empty","red","empty","empty","empty","empty","empty","empty","red"]
 
-board.forEach(myFunction)
+let a = 1
+board.forEach(loopThroughBoard)
 
-function myFunction(item) {
+function loopThroughBoard(item) {
   if (item == "empty"){document.write('<div class = "square"></div>');}
   if (item == "red"){document.write('<div class = "square"><div class = "red-circle"></div></div>');}
   if (item == "gold"){document.write('<div class = "square"><div class = "gold-circle"></div></div>');}
