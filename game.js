@@ -4,16 +4,17 @@
 var square, board = ["green","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty",
 "empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty",
 "empty", "empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty", "empty",
-"empty","empty","empty","empty","empty","empty","empty","red","empty","empty","empty","empty","empty","empty","gold"]
+"empty","empty","empty","empty","empty","empty","empty","red","empty","empty","empty","empty","empty","empty","gold"];
 
-var gameInProgress = false
+var gameInProgress = false;
+var humanDirection = 4; // 0 = up, 1 = down, 2 = left, 3 = right, 4 = no move
 
 function createInitialBoard(){
 	for(square in board){
-		if (board[square] == "empty"){document.write('<div class = "square"></div>')}
-		if (board[square] == "red"){document.write('<div class = "square"><div class = "red-circle"></div></div>')}
-		if (board[square] == "gold"){document.write('<div class = "square"><div class = "gold-circle"></div></div>')}
-		if (board[square] == "green"){document.write('<div class = "square"><div class = "green-circle"></div></div>')}
+		if (board[square] == "empty"){document.write('<div class = "square"></div>');}
+		if (board[square] == "red"){document.write('<div class = "square"><div class = "red-circle"></div></div>');}
+		if (board[square] == "gold"){document.write('<div class = "square"><div class = "gold-circle"></div></div>');}
+		if (board[square] == "green"){document.write('<div class = "square"><div class = "green-circle"></div></div>');}
 	}
 }
 
@@ -24,7 +25,7 @@ function startGame(){
 	scoreMsg = "hello - test"
 	createInitialBoard()
 	gameInProgress = true
-	var humanDirection = 4  // 0 = up, 1 = down, 2 = left, 3 = right, 4 = no move
+	humanDirection = 4  
 	var circleObjects = [] // To store human player, computer player and gold circle objects. 
 	circleObjects[0] = {type: 'green', square: 0, direction: 4}  //Human player
 	circleObjects[1] = {type: 'gold', square: 63, direction: 4} // Gold square 
@@ -33,7 +34,7 @@ function startGame(){
 	var score = 0
 	var lastTimeRecorded = Date.now() + 500
 	while (gameInProgress){
-		console.log(scoreMsg)
+
 		scoreMsg = score
 		addDirectionEventListeners()
 		// Message if human selects invalid move
@@ -59,43 +60,40 @@ function updateBoard(){} //TBC
 
 function isHumanMoveValid(){} //TBC
 
-function addDirectionEventListeners(direction){
+function addDirectionEventListeners(userChoice){
 	if (gameInProgress){
-		if direction == "UP" {humanDirection = 0}
-		if direction == "DOWN" {humanDirection = 1}
-		if direction == "LEFT" {humanDirection = 2}
-		if direction == "RIGHT" {humanDirection = 3}
+		if(userChoice == 'UP') {humanDirection = 0}
+		if(userChoice == 'DOWN') {humanDirection = 1}
+		if(userChoice == 'LEFT') {humanDirection = 2}
+		if(userChoice == 'RIGHT') {humanDirection = 3}
 		}
+	}
 
 function humanPlayerMove(){} //TBC
 
 function computerPlayerMoves(){
 	for (spriteObject in circleObjects){
 		if (spriteObject.type != 'red') {continue}
-		spriteObject.direction = getDirection(spriteObject)
+		spriteObject.direction = getDirection(spriteObject);
 	}
 }
 
 // Returns an int. 0 = up, 1 = down, 2 = left, 3 = right, 4 = no valid move
 function getDirection(spriteObject){
-	if (!doesValidMoveExist(spriteObject))
-		{return 4}
-	var randomDirection = Math.floor(Math.random() * 3)  
-	if (isNotValidMove(spriteObject))
-		{getDirection(spriteObject)}
+	if (!doesValidMoveExist(spriteObject)){return 4}
+	var randomDirection = Math.floor(Math.random() * 3);  
+	if (isNotValidMove(spriteObject)){getDirection(spriteObject)}
 	return randomDirection
 }
 
 function doesValidMoveExist(spriteObject){} //TBC
 
-function playerEliminated(){} //TBC
+function playerEliminated(){;} //TBC
 
-function newGameClicked(){}//TBC
+function newGameClicked(){;}//TBC
 
 function newComputerPlayer(initialSquare){
-	this.square = initialSquare
-	//TBC
-	}
+	this.square = initialSquare;}
 
 
 function newGoldCircleObject(squareNum){
@@ -105,9 +103,8 @@ function isSquareFree(squareNum){
 	//Checks if a square is free for a new object to occupy. TBC
 }
 
-function setSquare(squareNumber, spriteObject) {} //Sets a new square for the 'this' object. 
+function setSquare(squareNumber, spriteObject) {;} //Sets a new square for the 'this' object. 
 
-function removePreviousGameMessages() {} //TBC
+function removePreviousGameMessages() {;} //TBC
 
 function findFreeSquare(){} //TBC
-
