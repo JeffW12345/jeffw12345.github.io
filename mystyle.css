@@ -44,6 +44,13 @@ body {background-color: black;}
 }
 
 .gold-circle{
+     width: 76px;
+     height: 76px;
+	 background: #ffcc00;
+     border-radius: 50%
+    }
+
+.gold-circle::before{
      width: 75px;
      height: 75px;
 	 background: #ffcc00;

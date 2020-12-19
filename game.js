@@ -1,17 +1,30 @@
 // This file awaits for an instruction to begin the game, and then runs the game.
 
-awaitNewGameInstruction()
+// In the array below, the first entry represents the square at the top left row, then next one the next square, etc.
+// Green = contains a green circle, etc. 
 
-function awaitNewGameInstruction(){
-	removePreviousGameMessages();
-	// TO DO - Code for writing score. 
-	document.getElementById("NEW-GAME").addEventListener("mousedown",startGame());}
+var square, board = ["green","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty",
+"empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty",
+"empty", "empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty", "empty",
+"empty","empty","empty","empty","empty","empty","empty","red","empty","empty","empty","empty","empty","empty","gold"];
+
+function createInitialBoard(){
+	console.log("Hello")
+	for(square in board){
+		if (board[square] == "empty"){document.write('<div class = "square"></div>');}
+		if (board[square] == "red"){document.write('<div class = "square"><div class = "red-circle"></div></div>');}
+		if (board[square] == "gold"){document.write('<div class = "square"><div class = "gold-circle"></div></div>');}
+		if (board[square] == "green"){document.write('<div class = "square"><div class = "green-circle"></div></div>');}
+	}
+}
 
 function startGame(){
+	var gameInProgress = true;
+	document.getElementById("score").textContent = "hello"
 	document.getElementById("NEW-GAME").addEventListener("mousedown",newGameClicked());
 	createInitialBoard();
+	gameInProgress = true;
 	var humanDirection = 4  // 0 = up, 1 = down, 2 = left, 3 = right, 4 = no move
-	var gameInProgress = true;
 	var circleObjects = []; // To store human player, computer player and gold circle objects. 
 	circleObjects[0] = {type: 'green', square: 0, direction: 4};  //Human player
 	circleObjects[1] = {type: 'gold', square: 63, direction: 4}; // Gold square 
@@ -57,7 +70,7 @@ function humanPlayerMove(){} //TBC
 function computerPlayerMoves(){
 	for (spriteObject in circleObjects){
 		if (spriteObject.type != 'red') {continue}
-		var spriteObject.direction = getDirection(spriteObject);
+		spriteObject.direction = getDirection(spriteObject);
 	}
 }
 
@@ -65,7 +78,7 @@ function computerPlayerMoves(){
 function getDirection(spriteObject){
 	if (!doesValidMoveExist(spriteObject)){return 4}
 	var randomDirection = Math.floor(Math.random() * 3);  
-	if (isNotValidMove(spriteObject){getDirection(spriteObject)}
+	if (isNotValidMove(spriteObject)){getDirection(spriteObject)}
 	return randomDirection
 }
 
