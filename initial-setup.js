@@ -8,7 +8,7 @@ function createInitialBoard(){
 	var square, board = ["green","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty",
 	"empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty", 
 	"empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty", "empty",
-	"empty","empty","empty","empty","empty","empty","empty","red","empty","empty","empty","empty","empty","empty","red"];
+	"empty","empty","empty","empty","empty","empty","empty","red","empty","empty","empty","empty","empty","empty","gold"];
 	for(square in board){
 		if (board[square] == "empty"){document.write('<div class = "square"></div>');}
 		if (board[square] == "red"){document.write('<div class = "square"><div class = "red-circle"></div></div>');}

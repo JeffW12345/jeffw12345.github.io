@@ -5,22 +5,22 @@ body {background-color: black;}
 		text-align: center;
 }
 
-.title-name{font-family: verdana;
-		font-size: 110px;}
+.title-name{font-family: freestyle script;
+		font-size: 150px;}
 
 #title-word-one{color: red;}
 
-#title-word-two{color: lime;}
+#title-word-two{color: #228B22;}
 
-#title-word-three{color: gold;}
+#title-word-three{color: #ffcc00;}
 				
 #title-word-four{color: white;font-family: comic-sans;font-size: 130px;}
 
 .canvas {
    background-color: red;
    position: static;
-   width: 738px;
-   height: 738px;
+   width: 780px;
+   height: 780px;
    margin-left: 100px;
    margin-top: 10px;
    border: 1px white solid;
@@ -39,19 +39,21 @@ body {background-color: black;}
    margin-right: 7.5px;
    margin-top: 7.5px;
    margin-bottom: 7.5px;
+   padding: 2.5px 2.5px 2.5px 2.5px;
    border: 1px white solid;
 }
 
 .gold-circle{
      width: 75px;
      height: 75px;
-     background: gold;
+	 background: #ffcc00;
      border-radius: 50%
     }
+	
 .green-circle{
      width: 75px;
      height: 75px;
-     background: lime;
+     background: #228B22;
      border-radius: 50%
     }
 .red-circle{
@@ -62,7 +64,6 @@ body {background-color: black;}
     }
 footer {
   margin-top: 47rem;
-  text-align: left;
   font-size: 15px;
   font-family: tahoma;
   color: white;
