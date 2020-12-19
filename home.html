@@ -6,6 +6,13 @@
 	<meta name="description" content="Capture as many dots as possible before another dot captures your dot. A simple JavaScript based one player game.">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="mystyle.css">
+	<script type = "text/javascript" src="game.js"></script>  
+	<!-- Avoids error arising from the fact that the 'score' element hasn't been encountered by the time the event handler code is executed. -->
+	<script>
+	function initialScoreText(){document.getElementById('score').innerHTML = 'test';}
+	window.onload = function () {
+	initialScoreText();}
+	</script>
 </head>
 <body>
 	<div id="title-container">
@@ -16,8 +23,9 @@
 	</div>
 	
 	<div class="canvas">
-			<script src="initial-setup.js"></script>
+			<script type = "text/javascript"> createInitialBoard() </script>
 	</div>
+	
 	<div id="buttons" style="text-align:center;width:200px;height:200px;float:left;margin-left:30px;margin-top:10px; font-size: 30px;">
 		<button id = "UP">UP</button>
 		<br>
@@ -25,7 +33,7 @@
 		<br>
 		<button id = "DOWN">DOWN</button>
 		<br><br>
-		<button id = "NEW-GAME">NEW GAME</button>
+		<button id = "NEW-GAME" onmousedown="startGame()">NEW GAME</button>
 		<br><br>
 		<div id="instructions" style="color: white; text-align:left; font-size: 17px;font-family: tahoma">
 			You are the green player.<br><br>
@@ -37,7 +45,6 @@
 		</div>
 		<div id="message1" style="color: white; text-align:left; font-size: 17px;font-family: tahoma"></div>
 	</div>
-	<script src="game.js"></script>
 	<br>
 	<div id="end-of-game-message"></div> 
 	<footer> Website designed by <a href=https://www.linkedin.com/in/jeff-waters-6220657a/> Jeff Waters</a>.</footer>

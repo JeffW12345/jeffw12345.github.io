@@ -1,5 +1,3 @@
-// This file awaits for an instruction to begin the game, and then runs the game.
-
 // In the array below, the first entry represents the square at the top left row, then next one the next square, etc.
 // Green = contains a green circle, etc. 
 
@@ -9,7 +7,6 @@ var square, board = ["green","empty","empty","empty","empty","empty","empty","em
 "empty","empty","empty","empty","empty","empty","empty","red","empty","empty","empty","empty","empty","empty","gold"];
 
 function createInitialBoard(){
-	console.log("Hello")
 	for(square in board){
 		if (board[square] == "empty"){document.write('<div class = "square"></div>');}
 		if (board[square] == "red"){document.write('<div class = "square"><div class = "red-circle"></div></div>');}
@@ -31,22 +28,24 @@ function startGame(){
 	circleObjects[2] = {type: 'red', square: 56, direction: 4}; // Red square - computer opponent
 	var numberOfComputerOppoments = 1;
 	var score = 0;
-	var lastTimeRecorded = new Date.now() + 500;
+	var lastTimeRecorded = Date.now() + 500;
+	document.getElementById("score").innerHTML = "test"
 	while (gameInProgress){
-		document.getElementById("score").textContent = score
+		console.log(score)
+		document.getElementById("score").textContent = score.toString
 		addDirectionEventListeners();
 		// Message if human selects invalid move
 		if (!isHumanMoveValid){document.getElementById("message1").textContent = "Invalid move"}
 		else {document.getElementById("message1").textContent = ""}
 		// Has half a second passed since the last complete loop?
-		if(new Date.now() <  lastTimeRecorded + 500) {continue;}
+		if(Date.now() <  lastTimeRecorded + 500) {continue;}
 		// Human and computer player moves processed
 		if (isHumanMoveValid){humanPlayerMove()}
 		computerPlayerMoves();
 		updateBoard();
-		// If player has landed on a square containing a gold circle.
+		// If player has landed on a square containing a gold circle. - TBC
 		
-		// If the human player has collided with a computer player.
+		// If the human player has collided with a computer player. - TBC
 		
 		lastTimeRecorded = new Date.now()
 		var humanDirection = 4 // Resetting post-move
