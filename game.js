@@ -1,4 +1,4 @@
-// In the array below, the first entry represents the square at the top left row, then next one the next square, etc.
+// In the array below, the first entry represents the square at the top left row, then next one the next square to the left, etc.
 // Green = contains a green circle, etc. 
 
 var square, board = ["green","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty",
@@ -8,6 +8,7 @@ var square, board = ["green","empty","empty","empty","empty","empty","empty","em
 
 var gameInProgress = false;
 var humanDirection = 4; // 0 = up, 1 = down, 2 = left, 3 = right, 4 = no move
+var circleObjects = [] // To store human player, computer player and gold circle objects.
 
 function createInitialBoard(){
 	for(square in board){
@@ -19,27 +20,25 @@ function createInitialBoard(){
 }
 
 function startGame(){
+	addActionListeners
 	gameInProgress = true
 	document.getElementById("NEW-GAME").addEventListener("mousedown",newGameClicked())
-	var scoreMsg = document.getElementById("score").textContent
-	scoreMsg = "hello - test"
-	createInitialBoard()
 	gameInProgress = true
-	humanDirection = 4  
-	var circleObjects = [] // To store human player, computer player and gold circle objects. 
-	circleObjects[0] = {type: 'green', square: 0, direction: 4}  //Human player
+	humanDirection = 4   
+	circleObjects[0] = {type: 'green', square: 0, direction: 4} // Human player
 	circleObjects[1] = {type: 'gold', square: 63, direction: 4} // Gold square 
 	circleObjects[2] = {type: 'red', square: 56, direction: 4} // Red square - computer opponent
 	var numberOfComputerOppoments = 1
 	var score = 0
 	var lastTimeRecorded = Date.now() + 500
+	var secondsElapsed = 0
 	while (gameInProgress){
-
-		scoreMsg = score
-		addDirectionEventListeners()
+		document.getElementById("score").textContent = "Score: " + score
 		// Message if human selects invalid move
-		if (!isHumanMoveValid){document.getElementById("message1").textContent = "Invalid move"}
-		else {document.getElementById("message1").textContent = ""}
+		if (!isHumanMoveValid){
+			document.getElementById("message1").textContent = "Invalid move"
+			humanDirection = 4}
+		else {validMoveMessage = " "}
 		// Has half a second passed since the last complete loop?
 		if(Date.now() <  lastTimeRecorded + 500) {continue}
 		// Human and computer player moves processed
@@ -50,7 +49,7 @@ function startGame(){
 		
 		// If the human player has collided with a computer player. - TBC
 		
-		lastTimeRecorded = new Date.now()
+		lastTimeRecorded = Date.now()
 		var humanDirection = 4 // Resetting post-move
 	}
 	// TBC
@@ -93,7 +92,7 @@ function playerEliminated(){;} //TBC
 function newGameClicked(){;}//TBC
 
 function newComputerPlayer(initialSquare){
-	this.square = initialSquare;}
+	this.square = initialSquare;} //TBC
 
 
 function newGoldCircleObject(squareNum){
@@ -108,3 +107,11 @@ function setSquare(squareNumber, spriteObject) {;} //Sets a new square for the '
 function removePreviousGameMessages() {;} //TBC
 
 function findFreeSquare(){} //TBC
+
+function addActionListeners() {
+	document.getElementById("UP").addEventListener("click", addDirectionEventListeners("UP"))
+	document.getElementById("DOWN").addEventListener("click", addDirectionEventListeners("DOWN"))
+	document.getElementById("LEFT").addEventListener("click", addDirectionEventListeners("LEFT"))
+	document.getElementById("RIGHT").addEventListener("click", addDirectionEventListeners("RIGHT"))
+	document.getElementById("NEW-GAME").addEventListener("click", function() {location.reload})
+}
