@@ -28,18 +28,19 @@
 		<br>
 		<button id = "DOWN">DOWN</button>
 		<br><br>
-		<button id = "NEW-GAME">NEW GAME</button>
+		<button id = "RESTART">RESTART</button>
 		<br><br>
 		<div id="instructions" style="color: white; text-align:left; font-size: 17px;font-family: tahoma">
 			You are the green player.<br><br>
 			Reach a gold circle=1 point. <br><br>
 			Red circle reaches you=you lose. <br><br>
+			The game starts when you move.<br><br>
 			Good luck! </div>
 		<br>
 		<div id="score" style="color: white; text-align:left; font-size: 25px;font-family: tahoma; font-weight: bold;">
 		</div>
 		<div id="message1" style="color: white; text-align:left; font-size: 17px;font-family: tahoma"></div>
-		<script type = "text/javascript"> window.onload = function () {startGame()} </script>
+		<script type = "text/javascript"> window.onload = function () {addActionListeners()} </script>
 	</div>
 	<br>
 	<div id="end-of-game-message"></div> 
