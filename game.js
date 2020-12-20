@@ -33,28 +33,32 @@ function startGame(){
 	var lastTimeRecorded = Date.now() + 500
 	var secondsElapsed = 0
 	while (gameInProgress){
+		// Has half a second passed since the last complete loop?
+		if(Date.now() <  lastTimeRecorded + 500) {continue}
+		secondsElapsed += 0.5
 		document.getElementById("score").textContent = "Score: " + score
 		// Message if human selects invalid move
 		if (!isHumanMoveValid){
 			document.getElementById("message1").textContent = "Invalid move"
 			humanDirection = 4}
 		else {document.getElementById("message1").textContent = " "}
-		// Has half a second passed since the last complete loop?
-		if(Date.now() <  lastTimeRecorded + 500) {continue}
 		// Human and computer player moves processed
 		if (isHumanMoveValid){humanPlayerMove()}
 		computerPlayerMoves()
-		updateBoard()
-		// If player has landed on a square containing a gold circle. - TBC
-		
-		// If the human player has collided with a computer player. - TBC
-		
+		winsPointsActions() // If human player has landed on a square containing a gold circle. - TBC
+		humanLoses() // If the human player has collided with a computer player. - TBC
+		if (secondsElapsed % 20 == 0 && numberOfComputerOppoments < 5){
+			newComputerPlayer(findFreeSquare())
+			numberOfComputerOppoments ++}
+		updateBoard() // Re-populates the board
+		var humanDirection = 4 // Resetting human movement to stationary post-move
 		lastTimeRecorded = Date.now()
-		var humanDirection = 4 // Resetting post-move
 	}
 	// TBC
 }
 
+function humanLoses() {} // TBC
+function winsPointsActions() {} // TBC
 function updateBoard(){} //TBC
 
 function isHumanMoveValid(){} //TBC
