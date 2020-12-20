@@ -1,6 +1,6 @@
 // In the 'board' array below, the first entry represents the square at the top left row, then next one the next square to the left, etc.
 // Green = contains a green circle, etc. 
-var square, board = ["green","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty",
+var board = ["green","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty",
 "empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty",
 "empty", "empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty", "empty",
 "empty","empty","empty","empty","empty","empty","empty","red","empty","empty","empty","empty","empty","empty","gold"] 
@@ -14,17 +14,32 @@ var numberOfComputerOpponents = 1
 var intervalSetter
 
 function createInitialBoard(){
-	for(square in board){
-		if (board[square] == "empty"){document.write('<div class = "square"></div>')}
-		if (board[square] == "red"){document.write('<div class = "square"><div class = "red-circle"></div></div>')}
-		if (board[square] == "gold"){document.write('<div class = "square"><div class = "gold-circle"></div></div>')}
-		if (board[square] == "green"){document.write('<div class = "square"><div class = "green-circle"></div></div>')}
+	for(square of board){
+		if (square == "empty"){document.write('<div class = "square"></div>')}
+		if (square == "red"){document.write('<div class = "square"><div class = "red-circle"></div></div>')}
+		if (square == "gold"){document.write('<div class = "square"><div class = "gold-circle"></div></div>')}
+		if (square == "green"){document.write('<div class = "square"><div class = "green-circle"></div></div>')}
 	}
 }
 
-function updateBoardView(){}
-// This function is only called when the human player makes a valid initial move. 
+// Used to re-populate the board after pieces have moved. 
+function updateBoardView(){
+	var boardDivs = document.getElementsByClassName("square")
+	count = 0
+	for(square of board){
+		if (square == "empty") {
+			boardDivs[count].innerHTML = ''}
+		if (square == "red") {
+			boardDivs[count].innerHTML = '<div class = "red-circle"></div>'}
+		if (square == "gold") {
+			boardDivs[count].innerHTML = '<div class = "gold-circle"></div>'}
+		if (square == "green") {
+			boardDivs[count].innerHTML = '<div class = "green-circle"></div>'}
+		count++
+	}
+}
 
+// This function is only called when the human player makes a valid initial move. 
 function startGame(){
 	gameInProgress = true  
 	circleObjects[1] = {colour: 'gold', squareNum: 63} // Gold square (human wins points on reaching this square)
@@ -34,6 +49,7 @@ function startGame(){
 	intervalSetter = setInterval(function(){inGameActions()},500)}
 
 function inGameActions(){
+		console.log(humanDirection)
 		gameInProgress = true
 		setNewHumanSquare(humanDirection)
 		makeComputerMove()
@@ -45,20 +61,19 @@ function inGameActions(){
 			circleObjects[1].squareNum = findFreeSquare()
 		}
 		// If the human player has collided with a computer player.
-		if(isHumanEliminated) {
+		if(isHumanEliminated()) {
 			document.getElementById("end-of-game-message").textContent = "You've been eliminated. Press 'RESTART' to play again."
 			gameInProgress = false
 		}
-		winsPointsActions() // If human player has landed on a square containing a gold circle.
 		updateBoardRepresentation()
 		// New computer oppoent added every 20 seconds till there are 4 computer opponents.
-		if (millisecondsElapsed % 20000 == 0 && numberOfComputerOpponents < 5){
+		if (millisecondsElapsed % 20000 == 0 && numberOfComputerOpponents < 5 && gameInProgress){
 			squareForNewPlayer = findFreeSquare()
 			newComputerPlayer(squareForNewPlayer)
 			numberOfComputerOpponents++}
 		updateBoardRepresentation()
 		updateBoardView() // Re-populates the board
-		document.getElementById("score").textContent = "Score: " + score //Updates score
+		document.getElementById("score").textContent = "Score: " + score // Updates score
 		humanDirection = "NO MOVEMENT" // Resetting human movement to stationary post-move
 		millisecondsElapsed += 500
 		// Stops the function from running every 500 milliseconds if the player has been eliminated
@@ -107,10 +122,10 @@ function getRedPlayerSquareNums(){
 
 function setNewHumanSquare(directionOfTravel) {
 		if(directionOfTravel == "UP"){
-			circleObjects[0].squareNum += 8
+			circleObjects[0].squareNum -= 8
 		}
 		if(directionOfTravel == "DOWN"){
-			circleObjects[0].squareNum -= 8
+			circleObjects[0].squareNum += 8
 		}
 		if(directionOfTravel == "LEFT"){
 			circleObjects[0].squareNum -= 1
@@ -156,9 +171,11 @@ function setHumanDirection(userChoice){
 
 
 function makeComputerMove(){
-	for (spriteObject in circleObjects){
+	for (spriteObject of circleObjects){
 		if (spriteObject.colour != 'red') {continue}
+		console.log("Hello again")
 		var directionOfTravel = getDirection(spriteObject)
+		console.log("Dir: " + directionOfTravel)
 		setNewSquare(spriteObject, directionOfTravel)
 	}
 }
@@ -176,12 +193,12 @@ function setNewSquare(spriteObject, directionOfTravel){
 function getDirection(spriteObject){
 	if (!doesValidMoveExist(spriteObject)){return "NO MOVEMENT"}
 	// For code below, 0 = up, 1 = down, 2 = left, 3 = right
-	var randomDirection = Math.floor(Math.random() * 3)
 	while (true){
+		var randomDirection = Math.floor(Math.random() * 3)
+		console.log(randomDirection)
 		if(isValidComputerMove(spriteObject, randomDirection))
 			{break}
-		randomDirection = Math.floor(Math.random() * 3)
-	}
+			}
 	if (randomDirection == 0) return "UP"
 	if (randomDirection == 1) return "DOWN"
 	if (randomDirection == 2) return "LEFT"
@@ -189,7 +206,60 @@ function getDirection(spriteObject){
 }
 
 // 0 = up, 1 = down, 2 = left, 3 = right
-function isValidComputerMove(spriteObject, directionAsInt){}
+function isValidComputerMove(spriteObject, directionAsInt){
+	var currentSquare = spriteObject.squareNum
+	// Checks situations where the move would be out of bounds
+	// Check for 'up' first. 
+	var onTopRow = currentSquare <= 7
+	if (onTopRow && directionAsInt == 1)
+		{return false}
+	// Down
+	var onBottomRow = (currentSquare >= 56 && currentSquare <= 63)
+	if (onBottomRow && directionAsInt == 1)
+		{return false}
+	// Left
+	var onFarLeftCol = (currentSquare % 8 == 0)
+	if (onFarLeftCol && directionAsInt == 2)
+		{return false}
+	// Right
+	var farRightColSquareNums = [7, 15, 23, 31, 39, 47, 55, 63]
+	var onFarRightCol = farRightColSquareNums.includes(currentSquare)
+	if (onFarRightCol && directionAsInt == 3)
+		{return false}
+	// Checks if there is a gold or red circle on the proposed destination square 
+	// (as it can't occupy their squares).
+	// Check for 'up' first. 
+	var redPlayerNums = getRedPlayerSquareNums()
+	var goldCircleNum = circleObjects[0].squareNum
+	if (directionAsInt == 0 &&  redPlayerNums.includes(currentSquare - 8)) {
+		return false
+	}	
+	if (directionAsInt == 0 && goldCircleNum == (currentSquare - 8)) {
+		return false
+	}
+	// Down
+	if (directionAsInt == 1 &&  redPlayerNums.includes(currentSquare + 8)) {
+		return false
+	}	
+	if (directionAsInt == 1 && goldCircleNum == (currentSquare + 8)) {
+		return false
+	}	
+	// Left
+	if (directionAsInt == 2 &&  redPlayerNums.includes(currentSquare - 1)) {
+		return false
+	}	
+	if (directionAsInt == 2 && goldCircleNum == (currentSquare - 1)) {
+		return false
+	}
+	// Left
+	if (directionAsInt == 3 &&  redPlayerNums.includes(currentSquare + 1)) {
+		return false
+	}	
+	if (directionAsInt == 3 && goldCircleNum == (currentSquare + 1)) {
+		return false
+	}
+	return true
+}
 
 // Red player cannot occupy same square as another red player or as a gold circle
 function doesValidMoveExist(redPlayer){
@@ -201,7 +271,7 @@ function doesValidMoveExist(redPlayer){
 	}
 	// Is a move to the right possible?
 	var farRightColSquareNums = [7, 15, 23, 31, 39, 47, 55, 63]
-	var onFarRightCol = farRightColSquareNums.includes(currentSquare)
+	var onFarRightCol = farRightColSquareNums.includes(currentSquareNumber)
 	if (!onFarRightCol) {
 		if(board[currentSquareNumber + 1] != "red" && board[currentSquareNumber + 1] != "gold"){
 		return true}
