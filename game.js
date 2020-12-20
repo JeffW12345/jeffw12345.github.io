@@ -28,7 +28,7 @@ function startGame(){
 	circleObjects[0] = {type: 'green', square: 0, direction: 4} // Human player
 	circleObjects[1] = {type: 'gold', square: 63, direction: 4} // Gold square 
 	circleObjects[2] = {type: 'red', square: 56, direction: 4} // Red square - computer opponent
-	var numberOfComputerOppoments = 1
+	var numberOfComputerOpponents = 1
 	var score = 0
 	var lastTimeRecorded = Date.now() + 500
 	var secondsElapsed = 0
@@ -49,7 +49,7 @@ function startGame(){
 		humanLoses() // If the human player has collided with a computer player. - TBC
 		if (secondsElapsed % 20 == 0 && numberOfComputerOppoments < 5){
 			newComputerPlayer(findFreeSquare())
-			numberOfComputerOppoments ++}
+			numberOfComputerOpponents++}
 		updateBoard() // Re-populates the board
 		var humanDirection = 4 // Resetting human movement to stationary post-move
 		lastTimeRecorded = Date.now()
