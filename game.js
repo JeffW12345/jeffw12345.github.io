@@ -6,18 +6,18 @@ var square, board = ["green","empty","empty","empty","empty","empty","empty","em
 "empty","empty","empty","empty","empty","empty","empty","red","empty","empty","empty","empty","empty","empty","gold"] 
 var gameInProgress = false 
 var humanDirection = "NO MOVEMENT"
-var circleObjects = [] // To store human player, computer player and gold circle objects.
-circleObjects[0] = {type: 'green', squareNum: 0} // Human player
+var circleObjects = [] // To store human player, computer player and gold circle (prize) objects.
+circleObjects[0] = {colour: 'green', squareNum: 0} // Human player
 var millisecondsElapsed = 0
 var score = 0
 var numberOfComputerOpponents = 1
 
 function createInitialBoard(){
 	for(square in board){
-		if (board[square] == "empty"){document.write('<div class = "square"></div>') }
-		if (board[square] == "red"){document.write('<div class = "square"><div class = "red-circle"></div></div>') }
-		if (board[square] == "gold"){document.write('<div class = "square"><div class = "gold-circle"></div></div>') }
-		if (board[square] == "green"){document.write('<div class = "square"><div class = "green-circle"></div></div>') }
+		if (board[square] == "empty"){document.write('<div class = "square"></div>')}
+		if (board[square] == "red"){document.write('<div class = "square"><div class = "red-circle"></div></div>')}
+		if (board[square] == "gold"){document.write('<div class = "square"><div class = "gold-circle"></div></div>')}
+		if (board[square] == "green"){document.write('<div class = "square"><div class = "green-circle"></div></div>')}
 	}
 }
 
@@ -25,8 +25,8 @@ function createInitialBoard(){
 
 function startGame(){
 	gameInProgress = true  
-	circleObjects[1] = {type: 'gold', squareNum: 63} // Gold square (human wins points on reaching this square)
-	circleObjects[2] = {type: 'red', squareNum: 56} // Red square - computer player (human's opponent)
+	circleObjects[1] = {colour: 'gold', squareNum: 63} // Gold square (human wins points on reaching this square)
+	circleObjects[2] = {colour: 'red', squareNum: 56} // Red square - computer player (human's opponent)
 	// The inGameActions() function runs immediately, and then every 500 milliseconds thereafter. 
 	inGameActions()
 	setInterval(function(){inGameActions()},500)}
@@ -34,7 +34,7 @@ function startGame(){
 function inGameActions(){
 		gameInProgress = true
 		setNewHumanSquare(humanDirection)
-		computerPlayerMoves()
+		makeComputerMove()
 		winsPointsActions() // If human player has landed on a square containing a gold circle.
 		humanLoses() // If the human player has collided with a computer player.
 		// New computer oppoent added every 20 seconds till there are 4 computer opponents.
@@ -45,7 +45,7 @@ function inGameActions(){
 		document.getElementById("score").textContent = "Score: " + score //Updates score
 		humanDirection = "NO MOVEMENT" // Resetting human movement to stationary post-move
 		millisecondsElapsed += 500
-}
+		}
 
 function setNewHumanSquare(directionOfTravel) {
 	
@@ -59,23 +59,23 @@ function isHumanMoveValid(directionOfMovement){
 	var currentSquare = circleObjects[0].squareNum
 	// Checks situations where the move would be out of bounds
 	var onTopRow = currentSquare <= 7
-	if (onTopRow && directionOfMovement = "UP")
+	if (onTopRow && directionOfMovement == "UP")
 		{return false}
 	var onFarLeftCol = (currentSquare % 8 == 0)
-	if (onFarLeftCol && directionOfMovement = "LEFT")
+	if (onFarLeftCol && directionOfMovement == "LEFT")
 		{return false}
 	var farRightColSquareNums = [7, 15, 23, 31, 39, 47, 55, 63]
 	var onFarRightCol = farRightColSquareNums.includes(currentSquare)
-	if (onFarRightCol && directionOfMovement = "RIGHT")
+	if (onFarRightCol && directionOfMovement == "RIGHT")
 		{return false}
 	var onBottomRow = (currentSquare >= 56 && currentSquare <= 63)
-	if (onBottomRow && directionOfMovement = "DOWN")
+	if (onBottomRow && directionOfMovement == "DOWN")
 		{return false}} 
 
 function setHumanDirection(userChoice){
 		if(isHumanMoveValid(userChoice)) {humanDirection = userChoice}
 		// Message if human selects invalid move
-		if (!isHumanMoveValid(userChoice){
+		if (!isHumanMoveValid(userChoice)){
 			document.getElementById("message1").textContent = "Invalid move"}
 		else {
 			document.getElementById("message1").textContent = "You clicked " + userChoice}
@@ -83,24 +83,42 @@ function setHumanDirection(userChoice){
 		if (humanDirection != "NO MOVEMENT" && !gameInProgress){startGame()} 
 	}
 
-function humanPlayerMove(){} //TBC
 
-function computerPlayerMoves(){
+function makeComputerMove(){
 	for (spriteObject in circleObjects){
-		if (spriteObject.type != 'red') {continue}
-		spriteObject.direction = getDirection(spriteObject) 
+		if (spriteObject.colour != 'red') {continue}
+		var directionOfTravel = getDirection(spriteObject)
+		setNewSquare(spriteObject, directionOfTravel)
 	}
 }
+ 
+function setNewSquare(spriteObject, directionOfTravel){
+	existingSquare = spriteObject.squareNum
+	var newSquare  = 0
+	if (directionOfTravel == "NO MOVEMENT") {newSquare = existingSquare}
+	if (directionOfTravel == "UP") {newSquare += (existingSquare - 8)}
+	if (directionOfTravel == "DOWN") {newSquare += (existingSquare + 8)}
+	if (directionOfTravel == "LEFT") {newSquare += (existingSquare - 1)}
+	if (directionOfTravel == "LEFT") {newSquare += (existingSquare + 1)}
+}
 
-// Returns an int. 
 function getDirection(spriteObject){
 	if (!doesValidMoveExist(spriteObject)){return "NO MOVEMENT"}
 	// For code below, 0 = up, 1 = down, 2 = left, 3 = right
-	var randomDirection = Math.floor(Math.random() * 3)   
-	if (isNotValidMove(spriteObject)){getDirection(spriteObject)}
-	
-	return randomDirection
+	var randomDirection = Math.floor(Math.random() * 3)
+	while (true){
+		if(isValidComputerMove(spriteObject, randomDirection))
+			{break}
+		randomDirection = Math.floor(Math.random() * 3)
+	}
+	if (randomDirection == 0) return "UP"
+	if (randomDirection == 1) return "DOWN"
+	if (randomDirection == 2) return "LEFT"
+	return "RIGHT"
 }
+
+// 0 = up, 1 = down, 2 = left, 3 = right
+function isValidComputerMove(spriteObject, directionAsInt){}
 
 function doesValidMoveExist(spriteObject){} //TBC
 
