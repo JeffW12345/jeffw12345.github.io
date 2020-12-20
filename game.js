@@ -32,7 +32,6 @@ function startGame(){
 	setInterval(function(){inGameActions()},500)}
 
 function inGameActions(){
-		millisecondsElapsed += 500
 		gameInProgress = true
 		setNewHumanSquare(humanDirection)
 		computerPlayerMoves()
@@ -44,7 +43,8 @@ function inGameActions(){
 			numberOfComputerOpponents++}
 		updateBoard() // Re-populates the board
 		document.getElementById("score").textContent = "Score: " + score //Updates score
-		var humanDirection = 4 // Resetting human movement to stationary post-move
+		humanDirection = "NO MOVEMENT" // Resetting human movement to stationary post-move
+		millisecondsElapsed += 500
 }
 
 function setNewHumanSquare(directionOfTravel) {
@@ -73,10 +73,7 @@ function isHumanMoveValid(directionOfMovement){
 		{return false}} 
 
 function setHumanDirection(userChoice){
-		if(userChoice == 'UP' && isHumanMoveValid(userChoice)) {humanDirection = userChoice}
-		if(userChoice == 'DOWN'&& isHumanMoveValid(userChoice)) {humanDirection = userChoice}
-		if(userChoice == 'LEFT' isHumanMoveValid(userChoice)) {humanDirection = userChoice}
-		if(userChoice == 'RIGHT' isHumanMoveValid(userChoice)) {humanDirection = userChoice}
+		if(isHumanMoveValid(userChoice)) {humanDirection = userChoice}
 		// Message if human selects invalid move
 		if (!isHumanMoveValid(userChoice){
 			document.getElementById("message1").textContent = "Invalid move"}
@@ -84,7 +81,7 @@ function setHumanDirection(userChoice){
 			document.getElementById("message1").textContent = "You clicked " + userChoice}
 		// New game is move is valid and game not already in progress. 
 		if (humanDirection != "NO MOVEMENT" && !gameInProgress){startGame()} 
-		}
+	}
 
 function humanPlayerMove(){} //TBC
 
@@ -95,11 +92,13 @@ function computerPlayerMoves(){
 	}
 }
 
-// Returns an int. 0 = up, 1 = down, 2 = left, 3 = right, 4 = no valid move
+// Returns an int. 
 function getDirection(spriteObject){
-	if (!doesValidMoveExist(spriteObject)){return 4}
+	if (!doesValidMoveExist(spriteObject)){return "NO MOVEMENT"}
+	// For code below, 0 = up, 1 = down, 2 = left, 3 = right
 	var randomDirection = Math.floor(Math.random() * 3)   
 	if (isNotValidMove(spriteObject)){getDirection(spriteObject)}
+	
 	return randomDirection
 }
 
