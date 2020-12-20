@@ -11,6 +11,7 @@ circleObjects[0] = {colour: 'green', squareNum: 0} // Human player
 var millisecondsElapsed = 0
 var score = 0
 var numberOfComputerOpponents = 1
+var intervalSetter
 
 function createInitialBoard(){
 	for(square in board){
@@ -29,26 +30,46 @@ function startGame(){
 	circleObjects[2] = {colour: 'red', squareNum: 56} // Red square - computer player (human's opponent)
 	// The inGameActions() function runs immediately, and then every 500 milliseconds thereafter. 
 	inGameActions()
-	setInterval(function(){inGameActions()},500)}
+	intervalSetter = setInterval(function(){inGameActions()},500)}
 
 function inGameActions(){
 		gameInProgress = true
 		setNewHumanSquare(humanDirection)
 		makeComputerMove()
+		updateBoardRepresentation()
+		// If human lands on gold square, award points and put gold circle on new square
+		if(circleObjects[0].squareNum == circleObjects[1].squareNum){
+			score += 10
+			document.getElementById("score").textContent = "Score: " + score //Updates score
+			circleObjects[1].squareNum = findFreeSquare()
+		}
+		// If the human player has collided with a computer player.
+		if(isHumanEliminated) {
+			document.getElementById("end-of-game-message").textContent = "You've been eliminated. Press 'RESTART' to play again."
+			gameInProgress = false
+		}
 		winsPointsActions() // If human player has landed on a square containing a gold circle.
-		humanLoses() // If the human player has collided with a computer player.
 		updateBoardRepresentation()
 		// New computer oppoent added every 20 seconds till there are 4 computer opponents.
 		if (millisecondsElapsed % 20000 == 0 && numberOfComputerOpponents < 5){
-			newComputerPlayer(findFreeSquare())
+			squareForNewPlayer = findFreeSquare()
+			newComputerPlayer(squareForNewPlayer)
 			numberOfComputerOpponents++}
 		updateBoardRepresentation()
 		updateBoard() // Re-populates the board
 		document.getElementById("score").textContent = "Score: " + score //Updates score
 		humanDirection = "NO MOVEMENT" // Resetting human movement to stationary post-move
 		millisecondsElapsed += 500
+		// Stops the function from running every 500 milliseconds if the player has been eliminated
+		if(!gameInProgress)
+			{clearInterval(intervalSetter)}
 		}
 
+
+function isHumanEliminated(){
+	redPlayerSquares = getRedPlayerSquareNums()
+	if (redPlayerSquares.includes(circleObjects[0].squareNum)) {return true}
+	return false}
 
 function updateBoardRepresentation(){
 	humanSquareNum = circleObjects[0].squareNum
@@ -199,20 +220,19 @@ function doesValidMoveExist(redPlayer){
 	return false;
 }
 
-function playerEliminated(){ } //TBC
-
-function newGameClicked(){ }//TBC
-
-
 function findFreeSquare(){
 	var squareFound = false
-	var attempt = 	Math.floor(Math.random() * 63)
 	while (!squareFound){
-		if(board[squareFound] == "empty"){
+		var attempt = 	Math.floor(Math.random() * 63)
+		if(board[attempt] == "empty"){
 			return attempt;
 		}
-		attempt = 	Math.floor(Math.random() * 63)
 	}
+}
+
+function newComputerPlayer(squareToGoOn){
+	newObject = {colour: 'red', squareNum: squareToGoOn}
+	circleObjects.push(newObject)
 }
 
 function addActionListeners() {
