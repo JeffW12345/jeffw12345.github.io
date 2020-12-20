@@ -22,6 +22,7 @@ function createInitialBoard(){
 	}
 }
 
+function updateBoardView(){}
 // This function is only called when the human player makes a valid initial move. 
 
 function startGame(){
@@ -56,7 +57,7 @@ function inGameActions(){
 			newComputerPlayer(squareForNewPlayer)
 			numberOfComputerOpponents++}
 		updateBoardRepresentation()
-		updateBoard() // Re-populates the board
+		updateBoardView() // Re-populates the board
 		document.getElementById("score").textContent = "Score: " + score //Updates score
 		humanDirection = "NO MOVEMENT" // Resetting human movement to stationary post-move
 		millisecondsElapsed += 500

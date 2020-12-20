@@ -16,7 +16,7 @@ body {background-color: black;}
 				
 #title-word-four{color: white;font-family: comic-sans;font-size: 130px;}
 
-.canvas {
+#canvas {
    background-color: red;
    position: static;
    width: 780px;
