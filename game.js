@@ -37,15 +37,51 @@ function inGameActions(){
 		makeComputerMove()
 		winsPointsActions() // If human player has landed on a square containing a gold circle.
 		humanLoses() // If the human player has collided with a computer player.
+		updateBoardRepresentation()
 		// New computer oppoent added every 20 seconds till there are 4 computer opponents.
 		if (millisecondsElapsed % 20000 == 0 && numberOfComputerOpponents < 5){
 			newComputerPlayer(findFreeSquare())
 			numberOfComputerOpponents++}
+		updateBoardRepresentation()
 		updateBoard() // Re-populates the board
 		document.getElementById("score").textContent = "Score: " + score //Updates score
 		humanDirection = "NO MOVEMENT" // Resetting human movement to stationary post-move
 		millisecondsElapsed += 500
 		}
+
+
+function updateBoardRepresentation(){
+	humanSquareNum = circleObjects[0].squareNum
+	goldCircleNum = circleObjects[1].squareNum
+	redPlayerSquareNums = getRedPlayerSquareNums()
+	var count = 0
+	var squareEmpty = true;
+	for(square in board){
+		if (humanSquareNum == count) {
+			square == "green"
+			squareEmpty = false
+		}
+		if (goldCircleNum == count) {
+			square == "gold"
+			squareEmpty = false}
+		if (redPlayerSquareNums.includes(count)) {
+			square = "red"
+			squareEmpty = false}
+		if (squareEmpty) {
+			square = "empty"
+		}
+	}
+}
+
+function getRedPlayerSquareNums(){
+	var redCircleNums = []
+	for (object in circleObjects){
+		if (object.colour = 'red') {
+			redCircleNums.push(object.squareNum)
+		}
+	}
+	return redCircleNums
+}
 
 function setNewHumanSquare(directionOfTravel) {
 	
@@ -70,7 +106,9 @@ function isHumanMoveValid(directionOfMovement){
 		{return false}
 	var onBottomRow = (currentSquare >= 56 && currentSquare <= 63)
 	if (onBottomRow && directionOfMovement == "DOWN")
-		{return false}} 
+		{return false}
+	return true;
+	} 
 
 function setHumanDirection(userChoice){
 		if(isHumanMoveValid(userChoice)) {humanDirection = userChoice}
@@ -99,7 +137,7 @@ function setNewSquare(spriteObject, directionOfTravel){
 	if (directionOfTravel == "UP") {newSquare += (existingSquare - 8)}
 	if (directionOfTravel == "DOWN") {newSquare += (existingSquare + 8)}
 	if (directionOfTravel == "LEFT") {newSquare += (existingSquare - 1)}
-	if (directionOfTravel == "LEFT") {newSquare += (existingSquare + 1)}
+	if (directionOfTravel == "RIGHT") {newSquare += (existingSquare + 1)}
 }
 
 function getDirection(spriteObject){
@@ -120,28 +158,49 @@ function getDirection(spriteObject){
 // 0 = up, 1 = down, 2 = left, 3 = right
 function isValidComputerMove(spriteObject, directionAsInt){}
 
-function doesValidMoveExist(spriteObject){} //TBC
+// Red player cannot occupy same square as another red player or as a gold circle
+function doesValidMoveExist(redPlayer){
+	currentSquareNumber = redPlayer.squareNum
+	// Is a move to the left possible?
+	if (currentSquareNumber % 8 != 0){
+		if(board[currentSquareNumber - 1] != "red" && board[currentSquareNumber - 1] != "gold"){
+		return true}
+	// Is a move to the right possible?
+	var farRightColSquareNums = [7, 15, 23, 31, 39, 47, 55, 63]
+	var onFarRightCol = farRightColSquareNums.includes(currentSquare)
+	if (!onFarRightCol) {
+		if(board[currentSquareNumber + 1] != "red" && board[currentSquareNumber + 1] != "gold"){
+		return true}
+	// Is a move upwards possible?
+	var onTopRow = currentSquareNumber <= 7
+	if (!onTopRow) {
+		if(board[currentSquareNumber + 8] != "red" && board[currentSquareNumber + 8] != "gold"){
+		return true}
+	}
+	// Is a move downwards possible?
+	var onBottomRow = (currentSquare >= 56 && currentSquare <= 63)
+	if (!onBottomRow){
+		if(board[currentSquareNumber - 8] != "red" && board[currentSquareNumber - 8] != "gold"){
+		return true}
+	}
+	return false;
+	} 
 
 function playerEliminated(){ } //TBC
 
 function newGameClicked(){ }//TBC
 
-function newComputerPlayer(initialSquare){
-	this.square = initialSquare } //TBC
 
-
-function newGoldCircleObject(squareNum){
-	} //TBC
-
-function isSquareFree(squareNum){
-	//Checks if a square is free for a new object to occupy. TBC
+function findFreeSquare(){
+	var squareFound = false
+	var attempt = 	Math.floor(Math.random() * 63)
+	while (!squareFound){
+		if(board[squareFound] == "empty"){
+			return attempt;
+		}
+		attempt = 	Math.floor(Math.random() * 63)
+	}
 }
-
-function setSquare(squareNumber, spriteObject) { } //Sets a new square for the 'this' object. 
-
-function removePreviousGameMessages() { } //TBC
-
-function findFreeSquare(){} //TBC
 
 function addActionListeners() {
 	document.getElementById("UP").addEventListener("click", setHumanDirection("UP"))
