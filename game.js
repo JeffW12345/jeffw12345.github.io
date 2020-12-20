@@ -84,8 +84,19 @@ function getRedPlayerSquareNums(){
 }
 
 function setNewHumanSquare(directionOfTravel) {
-	
-} //TBC
+		if(directionOfTravel == "UP"){
+			circleObjects[0].squareNum += 8
+		}
+		if(directionOfTravel == "DOWN"){
+			circleObjects[0].squareNum -= 8
+		}
+		if(directionOfTravel == "LEFT"){
+			circleObjects[0].squareNum -= 1
+		}
+		if(directionOfTravel == "LEFT"){
+			circleObjects[0].squareNum += 1
+		}
+}
 
 function humanLoses() {} // TBC
 function winsPointsActions() {} // TBC
@@ -165,18 +176,20 @@ function doesValidMoveExist(redPlayer){
 	if (currentSquareNumber % 8 != 0){
 		if(board[currentSquareNumber - 1] != "red" && board[currentSquareNumber - 1] != "gold"){
 		return true}
+	}
 	// Is a move to the right possible?
 	var farRightColSquareNums = [7, 15, 23, 31, 39, 47, 55, 63]
 	var onFarRightCol = farRightColSquareNums.includes(currentSquare)
 	if (!onFarRightCol) {
 		if(board[currentSquareNumber + 1] != "red" && board[currentSquareNumber + 1] != "gold"){
 		return true}
+			}
 	// Is a move upwards possible?
 	var onTopRow = currentSquareNumber <= 7
 	if (!onTopRow) {
 		if(board[currentSquareNumber + 8] != "red" && board[currentSquareNumber + 8] != "gold"){
 		return true}
-	}
+		}
 	// Is a move downwards possible?
 	var onBottomRow = (currentSquare >= 56 && currentSquare <= 63)
 	if (!onBottomRow){
@@ -184,7 +197,7 @@ function doesValidMoveExist(redPlayer){
 		return true}
 	}
 	return false;
-	} 
+}
 
 function playerEliminated(){ } //TBC
 
