@@ -1,3 +1,12 @@
+/* The 'createInitialBoard()' function is called from home.html to create the populate the board with the circles as they are at the start
+* of the game. 
+* 
+* In addition, addActionListeners() is called from home.html. This adds action listeners to the buttons. When a direction button is pressed, 
+* this signifies that the player wishes to start playing, and the game begins. 
+* 
+* At the end of the game, the player can play again by clicking the restart button, which reloads the page. 
+*/
+
 // In the 'board' array below, the first entry represents the square at the top left row, then next one the next square to the left, etc.
 // Green = contains a green circle, etc. 
 var board = ["green","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty",
@@ -8,6 +17,8 @@ var gameInProgress = false
 var humanDirection = "NO MOVEMENT"
 var circleObjects = [] // To store human player, computer player and gold circle (prize) objects.
 circleObjects[0] = {colour: 'green', squareNum: 0} // Human player
+circleObjects[1] = {colour: 'gold', squareNum: 63} // Gold square (human wins points on reaching this square)
+circleObjects[2] = {colour: 'red', squareNum: 56} // Red square - computer player (human's opponent)
 var millisecondsElapsed = 0
 var score = 0
 var numberOfComputerOpponents = 1
@@ -42,18 +53,16 @@ function updateBoardView(){
 // This function is only called when the human player makes a valid initial move. 
 function startGame(){
 	gameInProgress = true  
-	circleObjects[1] = {colour: 'gold', squareNum: 63} // Gold square (human wins points on reaching this square)
-	circleObjects[2] = {colour: 'red', squareNum: 56} // Red square - computer player (human's opponent)
 	// The inGameActions() function runs immediately, and then every 500 milliseconds thereafter. 
 	inGameActions()
 	intervalSetter = setInterval(function(){inGameActions()},500)}
 
 function inGameActions(){
-		console.log(humanDirection)
 		gameInProgress = true
 		setNewHumanSquare(humanDirection)
 		makeComputerMove()
 		updateBoardRepresentation()
+		console.log(board)
 		// If human lands on gold square, award points and put gold circle on new square
 		if(circleObjects[0].squareNum == circleObjects[1].squareNum){
 			score += 10
@@ -70,7 +79,8 @@ function inGameActions(){
 		if (millisecondsElapsed % 20000 == 0 && numberOfComputerOpponents < 5 && gameInProgress){
 			squareForNewPlayer = findFreeSquare()
 			newComputerPlayer(squareForNewPlayer)
-			numberOfComputerOpponents++}
+			numberOfComputerOpponents++
+			console.log("num comp oppts " + numberOfComputerOpponents)}
 		updateBoardRepresentation()
 		updateBoardView() // Re-populates the board
 		document.getElementById("score").textContent = "Score: " + score // Updates score
@@ -90,10 +100,11 @@ function isHumanEliminated(){
 function updateBoardRepresentation(){
 	humanSquareNum = circleObjects[0].squareNum
 	goldCircleNum = circleObjects[1].squareNum
-	redPlayerSquareNums = getRedPlayerSquareNums()
+	var redPlayerSquareNums =  getRedPlayerSquareNums()
+	//console.log("red no " + redPlayerSquareNums.constructor.toString().indexOf("Array") > -1)
 	var count = 0
 	var squareEmpty = true;
-	for(square in board){
+	for(square of board){
 		if (humanSquareNum == count) {
 			square == "green"
 			squareEmpty = false
@@ -107,16 +118,19 @@ function updateBoardRepresentation(){
 		if (squareEmpty) {
 			square = "empty"
 		}
+		count++
 	}
+	//console.log("board" + board)
 }
 
 function getRedPlayerSquareNums(){
 	var redCircleNums = []
-	for (object in circleObjects){
-		if (object.colour = 'red') {
+	for (object of circleObjects){
+		if (object.colour == 'red') {
 			redCircleNums.push(object.squareNum)
 		}
 	}
+	console.log(redCircleNums)
 	return redCircleNums
 }
 
@@ -155,7 +169,7 @@ function isHumanMoveValid(directionOfMovement){
 	var onBottomRow = (currentSquare >= 56 && currentSquare <= 63)
 	if (onBottomRow && directionOfMovement == "DOWN")
 		{return false}
-	return true;
+	return true
 	} 
 
 function setHumanDirection(userChoice){
@@ -173,10 +187,11 @@ function setHumanDirection(userChoice){
 function makeComputerMove(){
 	for (spriteObject of circleObjects){
 		if (spriteObject.colour != 'red') {continue}
-		console.log("Hello again")
 		var directionOfTravel = getDirection(spriteObject)
-		console.log("Dir: " + directionOfTravel)
+		//console.log("Com dir" + directionOfTravel)
 		setNewSquare(spriteObject, directionOfTravel)
+		updateBoardRepresentation()
+		//console.log(board)
 	}
 }
  
@@ -188,6 +203,7 @@ function setNewSquare(spriteObject, directionOfTravel){
 	if (directionOfTravel == "DOWN") {newSquare += (existingSquare + 8)}
 	if (directionOfTravel == "LEFT") {newSquare += (existingSquare - 1)}
 	if (directionOfTravel == "RIGHT") {newSquare += (existingSquare + 1)}
+	spriteObject.squareNum = newSquare
 }
 
 function getDirection(spriteObject){
@@ -195,7 +211,7 @@ function getDirection(spriteObject){
 	// For code below, 0 = up, 1 = down, 2 = left, 3 = right
 	while (true){
 		var randomDirection = Math.floor(Math.random() * 3)
-		console.log(randomDirection)
+		//console.log(randomDirection)
 		if(isValidComputerMove(spriteObject, randomDirection))
 			{break}
 			}
