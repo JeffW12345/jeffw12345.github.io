@@ -44,12 +44,12 @@ function updateBoardView(){
 
 // This function is only called when the human player attempts an initial move. 
 function startGame(userChoice){
+	console.log(userChoice)
 	// Actions if proposed move is valid
 	if(isHumanMoveValid(userChoice)) {
 		humanDirection = userChoice
 		gameInProgress = true  
 		// The inGameActions() function runs immediately, and then every 500 milliseconds thereafter. 
-		inGameActions()
 		intervalSetter = setInterval(function(){inGameActions()},500)}
 	// Message if human player selects invalid move
 	if (!isHumanMoveValid(userChoice)){
@@ -73,7 +73,7 @@ function inGameActions(){
 		}
 		updateBoardRepresentation()
 		// New computer oppoent added approximately every 20 seconds till there are 4 computer opponents.
-		if (millisecondsElapsed % 20001 == 0 && numberOfComputerOpponents < 5 && gameInProgress && millisecondsElapsed > 0){
+		if (millisecondsElapsed % 30000 == 0 && numberOfComputerOpponents < 5 && gameInProgress && millisecondsElapsed > 0){
 			squareForNewPlayer = findFreeSquare()
 			newComputerPlayer(squareForNewPlayer)
 			numberOfComputerOpponents++
@@ -178,12 +178,14 @@ function makeComputerMove(){
  
 function setNewSquare(spriteObject, directionOfTravel){
 	var existingSquare = spriteObject.squareNum
+	//console.log("Existing square " + existingSquare)
 	var newSquare  = 0
 	if (directionOfTravel == "NO MOVEMENT") {newSquare = existingSquare}
 	if (directionOfTravel == "UP") {newSquare += (existingSquare - 8)}
 	if (directionOfTravel == "DOWN") {newSquare += (existingSquare + 8)}
 	if (directionOfTravel == "LEFT") {newSquare += (existingSquare - 1)}
 	if (directionOfTravel == "RIGHT") {newSquare += (existingSquare + 1)}
+	//console.log("New square " + newSquare)
 	spriteObject.squareNum = newSquare
 }
 
@@ -290,7 +292,7 @@ function doesValidMoveExist(redPlayer){
 function findFreeSquare(){
 	var squareFound = false
 	while (!squareFound){
-		var attempt = 	Math.floor(Math.random() * 63)
+		var attempt = 	Math.floor(Math.random() * 64)
 		if(board[attempt] == "empty"){
 			return attempt;
 		}
