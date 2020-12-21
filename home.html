@@ -17,7 +17,7 @@
 	</div>
 	
 	<div id="canvas">
-			<script type = "text/javascript"> createInitialBoard() </script>
+			<script type = "text/javascript"> createInitialBoard(); </script>
 	</div>
 	
 	<div id="buttons" style="text-align:center;width:200px;height:200px;float:left;margin-left:30px;margin-top:10px; font-size: 30px;">
@@ -40,7 +40,22 @@
 		<div id="score" style="color: white; text-align:left; font-size: 25px;font-family: tahoma; font-weight: bold;">
 		</div>
 		<div id="message1" style="color: white; text-align:left; font-size: 17px;font-family: tahoma"></div>
-		<script type = "text/javascript"> window.onload = function () {addActionListeners()} </script>
+		<script type = "text/javascript"> eventHandlers(); function eventHandlers() {
+		document.getElementById("RESTART").addEventListener("click", function() {location.reload})
+		if (gameInProgress){
+			document.getElementById("UP").addEventListener("click", humanDirection = "UP")
+			document.getElementById("DOWN").addEventListener("click", humanDirection = "DOWN")
+			document.getElementById("LEFT").addEventListener("click", humanDirection = "LEFT")
+			document.getElementById("RIGHT").addEventListener("click", humanDirection = "RIGHT")
+		}
+		if(!gameInProgress){
+			document.getElementById("UP").addEventListener("click", startGame("UP"))
+			document.getElementById("DOWN").addEventListener("click", startGame("DOWN"))
+			document.getElementById("LEFT").addEventListener("click", startGame("LEFT"))
+			document.getElementById("RIGHT").addEventListener("click", startGame("RIGHT"))
+			}
+		} 
+		</script>
 	</div>
 	<br>
 	<div id="end-of-game-message"></div> 

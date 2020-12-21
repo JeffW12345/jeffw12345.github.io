@@ -42,12 +42,19 @@ function updateBoardView(){
 	}
 }
 
-// This function is only called when the human player makes a valid initial move. 
-function startGame(){
-	gameInProgress = true  
-	// The inGameActions() function runs immediately, and then every 500 milliseconds thereafter. 
-	inGameActions()
-	intervalSetter = setInterval(function(){inGameActions()},500)}
+// This function is only called when the human player attempts an initial move. 
+function startGame(userChoice){
+	// Actions if proposed move is valid
+	if(isHumanMoveValid(userChoice)) {
+		humanDirection = userChoice
+		gameInProgress = true  
+		// The inGameActions() function runs immediately, and then every 500 milliseconds thereafter. 
+		inGameActions()
+		intervalSetter = setInterval(function(){inGameActions()},500)}
+	// Message if human player selects invalid move
+	if (!isHumanMoveValid(userChoice)){
+		document.getElementById("message1").textContent = "Invalid move"}
+		}
 
 function inGameActions(){
 		moveGreenCircle(humanDirection)
@@ -159,18 +166,6 @@ function isHumanMoveValid(directionOfMovement){
 		{return false}
 	return true
 	} 
-
-function setHumanDirection(userChoice){
-		if(isHumanMoveValid(userChoice)) {humanDirection = userChoice}
-		// Message if human selects invalid move
-		if (!isHumanMoveValid(userChoice)){
-			document.getElementById("message1").textContent = "Invalid move"}
-		else {
-			document.getElementById("message1").textContent = "You clicked " + userChoice}
-		// New game is move is valid and game not already in progress. 
-		if (humanDirection != "NO MOVEMENT" && !gameInProgress){startGame()} 
-	}
-
 
 function makeComputerMove(){
 	for (spriteObject of circleObjects){
