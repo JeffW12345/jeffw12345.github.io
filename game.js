@@ -58,6 +58,7 @@ function startGame(userChoice){
 
 function inGameActions(){
 		moveGreenCircle(humanDirection)
+		console.log(humanDirection)
 		makeComputerMove()
 		updateBoardRepresentation()
 		// If human lands on gold square, award points and put gold circle on new square
@@ -89,10 +90,7 @@ function inGameActions(){
 	}
 
 function isHumanEliminated(){
-	console.log("Hello - Elim")
 	var redPlayerSquares = getRedPlayerSquareNums()
-	console.log("Red squares" + redPlayerSquares)
-	console.log("Human square" + circleObjects[0].squareNum)
 	if (redPlayerSquares.includes(circleObjects[0].squareNum)) 
 		{return true}
 	return false}
@@ -147,7 +145,7 @@ function moveGreenCircle(directionOfTravel) {
 		if(directionOfTravel == "LEFT"){
 			circleObjects[0].squareNum -= 1
 		}
-		if(directionOfTravel == "LEFT"){
+		if(directionOfTravel == "RIGHT"){
 			circleObjects[0].squareNum += 1
 		}
 }
