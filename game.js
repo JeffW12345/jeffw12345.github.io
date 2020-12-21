@@ -82,10 +82,11 @@ function inGameActions(){
 		humanDirection = "NO MOVEMENT" // Resetting human movement to stationary post-move
 		millisecondsElapsed += 500
 		// Stops the function from running every 500 milliseconds if the player has been eliminated
-		if(!gameInProgress)
-			{clearInterval(intervalSetter)}
+		if(!gameInProgress){
+			console.log("Game over")
+			clearInterval(intervalSetter)
 		}
-
+	}
 
 function isHumanEliminated(){
 	console.log("Hello - Elim")
@@ -293,8 +294,7 @@ function doesValidMoveExist(redPlayer){
 }
 
 function findFreeSquare(){
-	var squareFound = false
-	while (!squareFound){
+	while (true){
 		var attempt = 	Math.floor(Math.random() * 64)
 		if(board[attempt] == "empty"){
 			return attempt;
