@@ -1,11 +1,3 @@
-/* The 'createInitialBoard()' function is called from home.html to create the populate the board with the circles as they are at the start
-* of the game. 
-* 
-* In addition, addActionListeners() is called from home.html. This adds action listeners to the buttons. When a direction button is pressed, 
-* this signifies that the player wishes to start playing, and the game begins. 
-* 
-* At the end of the game, the player can play again by clicking the restart button, which reloads the page. 
-*/
 
 // In the 'board' array below, the first entry represents the square at the top left row, then next one the next square to the left, etc.
 // Green = contains a green circle, etc. 
@@ -313,12 +305,4 @@ function findFreeSquare(){
 function newComputerPlayer(squareToGoOn){
 	newObject = {colour: 'red', squareNum: squareToGoOn}
 	circleObjects.push(newObject)
-}
-
-function addActionListeners() {
-	document.getElementById("UP").addEventListener("click", setHumanDirection("UP"))
-	document.getElementById("DOWN").addEventListener("click", setHumanDirection("DOWN"))
-	document.getElementById("LEFT").addEventListener("click", setHumanDirection("LEFT"))
-	document.getElementById("RIGHT").addEventListener("click", setHumanDirection("RIGHT"))
-	document.getElementById("RESTART").addEventListener("click", function() {location.reload})
 }
