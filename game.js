@@ -228,7 +228,7 @@ function isProposedComputerMoveValid(spriteObject, directionAsInt){
 	// (as it can't occupy their squares).
 	// Check for 'up' first. 
 	var redPlayerNums = getRedPlayerSquareNums()
-	var goldCircleNum = circleObjects[0].squareNum
+	var goldCircleNum = circleObjects[1].squareNum
 	if (directionAsInt == 0 &&  redPlayerNums.includes(currentSquare - 8)) {
 		return false
 	}	
