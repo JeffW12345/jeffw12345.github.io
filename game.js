@@ -36,7 +36,6 @@ function createInitialBoard(){
 // Used to re-populate the board after pieces have moved. 
 function updateBoardView(){
 	var boardDivs = document.getElementsByClassName("square")
-	//console.log("Board before change " + board)
 	var count = 0
 	for(square of board){
 		if (square == "empty") {
@@ -62,7 +61,6 @@ function inGameActions(){
 		moveGreenCircle(humanDirection)
 		makeComputerMove()
 		updateBoardRepresentation()
-		//console.log(board)
 		// If human lands on gold square, award points and put gold circle on new square
 		if(circleObjects[0].squareNum == circleObjects[1].squareNum){
 			score += 10
@@ -81,7 +79,6 @@ function inGameActions(){
 			newComputerPlayer(squareForNewPlayer)
 			numberOfComputerOpponents++
 			updateBoardRepresentation()}
-			//console.log("num comp oppts " + numberOfComputerOpponents)}
 		updateBoardView() // Re-populates the board
 		humanDirection = "NO MOVEMENT" // Resetting human movement to stationary post-move
 		millisecondsElapsed += 500
@@ -99,15 +96,9 @@ function isHumanEliminated(){
 
 function updateBoardRepresentation(){
 	var humanSquareNum = circleObjects[0].squareNum
-	console.log("human square " + humanSquareNum)
 	var goldCircleNum = circleObjects[1].squareNum
-	console.log("gold square " + goldCircleNum)
 	var redPlayerSquareNums =  getRedPlayerSquareNums()
-	console.log("red square " + redPlayerSquareNums)
 	var allOccupiedSquares = getAllOccupiedSquares()
-	console.log("all squares " + allOccupiedSquares)
-	//
-	//console.log("before" + board)
 	var i
 	for (i = 0; i < 64; i++){
 		if(i == humanSquareNum){
@@ -123,7 +114,6 @@ function updateBoardRepresentation(){
 			board[i] = "empty"
 		}
 	}
-	//console.log("after" + board)
 }
 
 function getAllOccupiedSquares(){
@@ -194,16 +184,13 @@ function makeComputerMove(){
 	for (spriteObject of circleObjects){
 		if (spriteObject.colour != 'red') {continue}
 		var directionOfTravel = getDirection(spriteObject)
-		//console.log("Com dir" + directionOfTravel)
 		setNewSquare(spriteObject, directionOfTravel)
 		updateBoardRepresentation()
-		//console.log(board)
 	}
 }
  
 function setNewSquare(spriteObject, directionOfTravel){
 	var existingSquare = spriteObject.squareNum
-	//console.log(existingSquare)
 	var newSquare  = 0
 	if (directionOfTravel == "NO MOVEMENT") {newSquare = existingSquare}
 	if (directionOfTravel == "UP") {newSquare += (existingSquare - 8)}
@@ -211,7 +198,6 @@ function setNewSquare(spriteObject, directionOfTravel){
 	if (directionOfTravel == "LEFT") {newSquare += (existingSquare - 1)}
 	if (directionOfTravel == "RIGHT") {newSquare += (existingSquare + 1)}
 	spriteObject.squareNum = newSquare
-	//console.log(spriteObject.squareNum)
 }
 
 function getDirection(spriteObject){
@@ -219,7 +205,6 @@ function getDirection(spriteObject){
 	// For code below, 0 = up, 1 = down, 2 = left, 3 = right
 	while (true){
 		var randomDirection = Math.floor(Math.random() * 4)
-		console.log("direction " + randomDirection)
 		if(isProposedComputerMoveValid(spriteObject, randomDirection))
 			{break}
 			}
