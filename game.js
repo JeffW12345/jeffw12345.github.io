@@ -72,8 +72,8 @@ function inGameActions(){
 			gameInProgress = false
 		}
 		updateBoardRepresentation()
-		// New computer oppoent added approximately every 20 seconds till there are 4 computer opponents.
-		if (millisecondsElapsed % 30000 == 0 && numberOfComputerOpponents < 5 && gameInProgress && millisecondsElapsed > 0){
+		// New computer opponent added approximately every 20 seconds till there are 4 computer opponents.
+		if (millisecondsElapsed % 30000 == 0 && numberOfComputerOpponents < 4 && gameInProgress && millisecondsElapsed > 0){
 			squareForNewPlayer = findFreeSquare()
 			newComputerPlayer(squareForNewPlayer)
 			numberOfComputerOpponents++
@@ -88,7 +88,10 @@ function inGameActions(){
 
 
 function isHumanEliminated(){
+	console.log("Hello - Elim")
 	var redPlayerSquares = getRedPlayerSquareNums()
+	console.log("Red squares" + redPlayerSquares)
+	console.log("Human square" + circleObjects[0].squareNum)
 	if (redPlayerSquares.includes(circleObjects[0].squareNum)) 
 		{return true}
 	return false}
@@ -281,7 +284,7 @@ function doesValidMoveExist(redPlayer){
 		return true}
 		}
 	// Is a move downwards possible?
-	var onBottomRow = (currentSquare >= 56 && currentSquare <= 63)
+	var onBottomRow = (currentSquareNumber >= 56 && currentSquareNumber <= 63)
 	if (!onBottomRow){
 		if(board[currentSquareNumber - 8] != "red" && board[currentSquareNumber - 8] != "gold"){
 		return true}
