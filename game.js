@@ -46,9 +46,11 @@ function updateBoardView(){
 function startGame(userChoice){
 	console.log(userChoice)
 	// Actions if proposed move is valid
-	if(isHumanMoveValid(userChoice)) {
+	if(isHumanMoveValid(userChoice) && !gameInProgress) {
 		humanDirection = userChoice
 		gameInProgress = true  
+		// Removes 'invalid move' message that might be present
+		document.getElementById("message1").textContent = " " 
 		// The inGameActions() function runs immediately, and then every 500 milliseconds thereafter. 
 		intervalSetter = setInterval(function(){inGameActions()},500)}
 	// Message if human player selects invalid move
@@ -151,19 +153,20 @@ function moveGreenCircle(directionOfTravel) {
 }
 
 function isHumanMoveValid(directionOfMovement){
-	var currentSquare = circleObjects[0].squareNum
+	var currentSquareNumber = circleObjects[0].squareNum
 	// Checks situations where the move would be out of bounds
-	var onTopRow = currentSquare <= 7
+	var onTopRow = currentSquareNumber <= 7
 	if (onTopRow && directionOfMovement == "UP")
 		{return false}
-	var onFarLeftCol = (currentSquare % 8 == 0)
-	if (onFarLeftCol && directionOfMovement == "LEFT")
+	var farLeftColSquareNums = [0, 8, 16, 24, 32, 40, 48, 56]
+	var onFarLeftCol = farLeftColSquareNums.includes(currentSquareNumber)
+	if (onFarLeftCol && directionOfMovement == "LEFT") 
 		{return false}
 	var farRightColSquareNums = [7, 15, 23, 31, 39, 47, 55, 63]
-	var onFarRightCol = farRightColSquareNums.includes(currentSquare)
+	var onFarRightCol = farRightColSquareNums.includes(currentSquareNumber)
 	if (onFarRightCol && directionOfMovement == "RIGHT")
 		{return false}
-	var onBottomRow = (currentSquare >= 56 && currentSquare <= 63)
+	var onBottomRow = (currentSquareNumber >= 56 && currentSquareNumber <= 63)
 	if (onBottomRow && directionOfMovement == "DOWN")
 		{return false}
 	return true
@@ -207,23 +210,24 @@ function getDirection(spriteObject){
 
 // 0 = up, 1 = down, 2 = left, 3 = right
 function isProposedComputerMoveValid(spriteObject, directionAsInt){
-	var currentSquare = spriteObject.squareNum
+	var currentSquareNumber = spriteObject.squareNum
 	// Checks situations where the move would be out of bounds
 	// Check for 'up' first. 
-	var onTopRow = currentSquare <= 7
+	var onTopRow = currentSquareNumber <= 7
 	if (onTopRow && directionAsInt == 0)
 		{return false}
 	// Down
-	var onBottomRow = (currentSquare >= 56 && currentSquare <= 63)
+	var onBottomRow = (currentSquareNumber >= 56 && currentSquareNumber <= 63)
 	if (onBottomRow && directionAsInt == 1)
 		{return false}
 	// Left
-	var onFarLeftCol = (currentSquare % 8 == 0)
+	var farLeftColSquareNums = [0, 8, 16, 24, 32, 40, 48, 56]
+	var onFarLeftCol = farLeftColSquareNums.includes(currentSquareNumber)
 	if (onFarLeftCol && directionAsInt == 2)
 		{return false}
 	// Right
 	var farRightColSquareNums = [7, 15, 23, 31, 39, 47, 55, 63]
-	var onFarRightCol = farRightColSquareNums.includes(currentSquare)
+	var onFarRightCol = farRightColSquareNums.includes(currentSquareNumber)
 	if (onFarRightCol && directionAsInt == 3)
 		{return false}
 	// Checks if there is a gold or red circle on the proposed destination square 
@@ -231,31 +235,31 @@ function isProposedComputerMoveValid(spriteObject, directionAsInt){
 	// Check for 'up' first. 
 	var redPlayerNums = getRedPlayerSquareNums()
 	var goldCircleNum = circleObjects[1].squareNum
-	if (directionAsInt == 0 &&  redPlayerNums.includes(currentSquare - 8)) {
+	if (directionAsInt == 0 &&  redPlayerNums.includes(currentSquareNumber - 8)) {
 		return false
 	}	
-	if (directionAsInt == 0 && goldCircleNum == (currentSquare - 8)) {
+	if (directionAsInt == 0 && goldCircleNum == (currentSquareNumber - 8)) {
 		return false
 	}
 	// Down
-	if (directionAsInt == 1 &&  redPlayerNums.includes(currentSquare + 8)) {
+	if (directionAsInt == 1 &&  redPlayerNums.includes(currentSquareNumber + 8)) {
 		return false
 	}	
-	if (directionAsInt == 1 && goldCircleNum == (currentSquare + 8)) {
+	if (directionAsInt == 1 && goldCircleNum == (currentSquareNumber + 8)) {
 		return false
 	}	
 	// Left
-	if (directionAsInt == 2 &&  redPlayerNums.includes(currentSquare - 1)) {
+	if (directionAsInt == 2 &&  redPlayerNums.includes(currentSquareNumber - 1)) {
 		return false
 	}	
-	if (directionAsInt == 2 && goldCircleNum == (currentSquare - 1)) {
+	if (directionAsInt == 2 && goldCircleNum == (currentSquareNumber - 1)) {
 		return false
 	}
 	// Right
-	if (directionAsInt == 3 &&  redPlayerNums.includes(currentSquare + 1)) {
+	if (directionAsInt == 3 &&  redPlayerNums.includes(currentSquareNumber + 1)) {
 		return false
 	}	
-	if (directionAsInt == 3 && goldCircleNum == (currentSquare + 1)) {
+	if (directionAsInt == 3 && goldCircleNum == (currentSquareNumber + 1)) {
 		return false
 	}
 	return true
@@ -265,7 +269,9 @@ function isProposedComputerMoveValid(spriteObject, directionAsInt){
 function doesValidMoveExist(redPlayer){
 	currentSquareNumber = redPlayer.squareNum
 	// Is a move to the left possible?
-	if (currentSquareNumber % 8 != 0){
+	var farLeftColSquareNums = [0, 8, 16, 24, 32, 40, 48, 56]
+	var onFarLeftCol = farLeftColSquareNums.includes(currentSquareNumber)
+	if (!onFarLeftCol){
 		if(board[currentSquareNumber - 1] != "red" && board[currentSquareNumber - 1] != "gold"){
 		return true}
 	}
@@ -293,7 +299,7 @@ function doesValidMoveExist(redPlayer){
 
 function findFreeSquare(){
 	while (true){
-		var attempt = 	Math.floor(Math.random() * 64)
+		var attempt = Math.floor(Math.random() * 64)
 		if(board[attempt] == "empty"){
 			return attempt;
 		}
