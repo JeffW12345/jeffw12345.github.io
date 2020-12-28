@@ -54,7 +54,7 @@ function startGame(userChoice){
 		// Removes 'invalid move' message that might be present
 		document.getElementById("message1").textContent = " " 
 		clearInterval(intervalSetter)
-		// The inGameActions() function runs immediately, and then every 200 milliseconds thereafter. 
+		// The inGameActions() function runs immediately, and then every 300 milliseconds thereafter. 
 		activateIntervalSetter()}
 	// Message if human player selects invalid move
 	if (!isHumanMoveValid(userChoice)){
@@ -62,7 +62,7 @@ function startGame(userChoice){
 		}
 
 function activateIntervalSetter(){
-	intervalSetter = setInterval(function(){inGameActions()},200)
+	intervalSetter = setInterval(function(){inGameActions()},300)
 }
 
 function inGameActions(){
@@ -93,7 +93,7 @@ function inGameActions(){
 			updateBoardRepresentation()}
 		updateBoardView() // Re-populates the board
 		humanDirection = "NO MOVEMENT" // Resetting human movement to stationary post-move
-		millisecondsElapsed += 200
+		millisecondsElapsed += 300
 		// Stops the function from running every 200 milliseconds if the player has been eliminated
 		if(!gameInProgress){
 			clearInterval(intervalSetter)
