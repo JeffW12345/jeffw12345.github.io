@@ -19,8 +19,8 @@ body {background-color: black;}
 #canvas {
    background-color: red;
    position: static;
-   width: 780px;
-   height: 780px;
+   width: 777px;
+   height: 777px;
    margin-left: 100px;
    margin-top: 10px;
    border: 1px white solid;
