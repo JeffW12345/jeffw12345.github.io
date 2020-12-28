@@ -306,6 +306,11 @@ function findFreeSquare(){
 	}
 }
 
+function setHumanDirection(direction){
+	humanDirection = direction
+}
+	
+
 function newComputerPlayer(squareToGoOn){
 	newObject = {colour: 'red', squareNum: squareToGoOn}
 	circleObjects.push(newObject)

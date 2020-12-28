@@ -44,22 +44,22 @@
 		<script type = "text/javascript"> eventHandlers(); function eventHandlers() {
 		document.getElementById("RESTART").addEventListener("click", function() {location.reload})
 		if (gameInProgress){
-			document.getElementById("UP").addEventListener("click", humanDirection = "UP")
-			document.getElementById("DOWN").addEventListener("click", humanDirection = "DOWN")
-			document.getElementById("LEFT").addEventListener("click", humanDirection = "LEFT")
-			document.getElementById("RIGHT").addEventListener("click", humanDirection = "RIGHT")
+			document.getElementById("UP").addEventListener("click", function() {setHumanDirection("UP")})
+			document.getElementById("DOWN").addEventListener("click", function() {setHumanDirection("DOWN")})
+			document.getElementById("LEFT").addEventListener("click", function(){setHumanDirection("LEFT")})
+			document.getElementById("RIGHT").addEventListener("click", function() {setHumanDirection("RIGHT")})
 		}
 		if(!gameInProgress){
-			document.getElementById("UP").addEventListener("click", startGame("UP"))
-			document.getElementById("DOWN").addEventListener("click", startGame("DOWN"))
-			document.getElementById("LEFT").addEventListener("click", startGame("LEFT"))
-			document.getElementById("RIGHT").addEventListener("click", startGame("RIGHT"))
+			document.getElementById("UP").addEventListener("click", function() {startGame("UP")})
+			document.getElementById("DOWN").addEventListener("click", function() {startGame("DOWN")})
+			document.getElementById("LEFT").addEventListener("click", function() {startGame("LEFT")})
+			document.getElementById("RIGHT").addEventListener("click", function() {startGame("RIGHT")})
 			}
 		} 
 		</script>
 	</div>
 	<br>
-	<footer> Website designed by <a href=https://www.linkedin.com/in/jeff-waters-6220657a/> Jeff Waters</a>.</footer>
+	<footer> Website designed by <a href=http://www.linkedin.com/in/jeff-waters-6220657a/> Jeff Waters</a>.</footer>
 	<br>
 </body>
 </html>
