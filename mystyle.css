@@ -62,6 +62,14 @@ body {background-color: black;}
      background: red;
      border-radius: 50%
     }
+
+.black-circle{
+     width: 75px;
+     height: 75px;
+     background: black;
+     border-radius: 50%
+    }
+	
 footer {
   margin-top: 47rem;
   font-size: 15px;

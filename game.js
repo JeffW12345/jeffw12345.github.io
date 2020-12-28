@@ -1,4 +1,3 @@
-
 // In the 'board' array below, the first entry represents the square at the top left row, then next one the next square to the left, etc.
 // Green = contains a green circle, etc. 
 var board = ["green","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty",
@@ -38,29 +37,37 @@ function updateBoardView(){
 			boardDivs[count].innerHTML = '<div class = "gold-circle"></div>'}
 		if (square == "green") {
 			boardDivs[count].innerHTML = '<div class = "green-circle"></div>'}
+		if (square == "black") {
+			boardDivs[count].innerHTML = '<div class = "black-circle"></div>'}
 		count++
 	}
 }
 
 // This function is only called when the human player attempts an initial move. 
 function startGame(userChoice){
-	console.log(userChoice)
+	if (userChoice == "RELOAD") {
+		location.reload()
+	}
 	// Actions if proposed move is valid
-	if(isHumanMoveValid(userChoice) && !gameInProgress) {
+	if(isHumanMoveValid(userChoice)) {
 		humanDirection = userChoice
 		gameInProgress = true  
 		// Removes 'invalid move' message that might be present
 		document.getElementById("message1").textContent = " " 
-		// The inGameActions() function runs immediately, and then every 500 milliseconds thereafter. 
-		intervalSetter = setInterval(function(){inGameActions()},500)}
+		clearInterval(intervalSetter)
+		// The inGameActions() function runs immediately, and then every 250 milliseconds thereafter. 
+		activateIntervalSetter()}
 	// Message if human player selects invalid move
 	if (!isHumanMoveValid(userChoice)){
 		document.getElementById("message1").textContent = "Invalid move"}
 		}
 
+function activateIntervalSetter(){
+	intervalSetter = setInterval(function(){inGameActions()},250)
+}
+
 function inGameActions(){
 		moveGreenCircle(humanDirection)
-		console.log(humanDirection)
 		makeComputerMove()
 		updateBoardRepresentation()
 		// If human lands on gold square, award points and put gold circle on new square
@@ -72,6 +79,10 @@ function inGameActions(){
 		// If the human player has collided with a computer player.
 		if(isHumanEliminated()) {
 			document.getElementById("end-of-game-message").textContent = "You've been eliminated. Press 'RESTART' to play again."
+			document.getElementById("UP").removeEventListener("click", function() {startGame("UP")})
+			document.getElementById("DOWN").removeEventListener("click", function() {startGame("DOWN")})
+			document.getElementById("LEFT").removeEventListener("click", function() {startGame("LEFT")})
+			document.getElementById("RIGHT").removeEventListener("click", function() {startGame("RIGHT")})
 			gameInProgress = false
 		}
 		updateBoardRepresentation()
@@ -94,7 +105,9 @@ function inGameActions(){
 function isHumanEliminated(){
 	var redPlayerSquares = getRedPlayerSquareNums()
 	if (redPlayerSquares.includes(circleObjects[0].squareNum)) 
-		{return true}
+		{redPlayerSquares.colour = "black";
+		circleObjects[0].colour = "black";
+		return true}
 	return false}
 
 function updateBoardRepresentation(){

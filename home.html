@@ -42,19 +42,12 @@
 		<div id="message1" style="color: white; text-align:left; font-size: 17px;font-family: tahoma"></div>
 		<div id="end-of-game-message" style="color: white; text-align:left; font-size: 17px;font-family: tahoma"></div> 
 		<script type = "text/javascript"> eventHandlers(); function eventHandlers() {
-		document.getElementById("RESTART").addEventListener("click", function() {location.reload})
-		if (gameInProgress){
-			document.getElementById("UP").addEventListener("click", function() {setHumanDirection("UP")})
-			document.getElementById("DOWN").addEventListener("click", function() {setHumanDirection("DOWN")})
-			document.getElementById("LEFT").addEventListener("click", function(){setHumanDirection("LEFT")})
-			document.getElementById("RIGHT").addEventListener("click", function() {setHumanDirection("RIGHT")})
-		}
-		if(!gameInProgress){
-			document.getElementById("UP").addEventListener("click", function() {startGame("UP")})
-			document.getElementById("DOWN").addEventListener("click", function() {startGame("DOWN")})
-			document.getElementById("LEFT").addEventListener("click", function() {startGame("LEFT")})
-			document.getElementById("RIGHT").addEventListener("click", function() {startGame("RIGHT")})
-			}
+		
+		document.getElementById("RESTART").addEventListener("click", function() {startGame("RELOAD")})
+		document.getElementById("UP").addEventListener("click", function() {startGame("UP")})
+		document.getElementById("DOWN").addEventListener("click", function() {startGame("DOWN")})
+		document.getElementById("LEFT").addEventListener("click", function() {startGame("LEFT")})
+		document.getElementById("RIGHT").addEventListener("click", function() {startGame("RIGHT")})
 		} 
 		</script>
 	</div>
