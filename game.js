@@ -47,19 +47,11 @@ function startGame(userChoice){
 	if (userChoice == "RELOAD") {
 		location.reload()
 	}
-	// Actions if proposed move is valid
-	if(isHumanMoveValid(userChoice)) {
-		humanDirection = userChoice
-		gameInProgress = true  
-		// Removes 'invalid move' message that might be present
-		document.getElementById("message1").textContent = " " 
-		clearInterval(intervalSetter)
-		// The inGameActions() function runs immediately, and then every 240 milliseconds thereafter. 
-		activateIntervalSetter()}
-	// Message if human player selects invalid move
-	if (!isHumanMoveValid(userChoice)){
-		document.getElementById("message1").textContent = "Invalid move"}
-		}
+	humanDirection = userChoice
+	gameInProgress = true  
+	clearInterval(intervalSetter)
+	// The inGameActions() function runs immediately, and then every 240 milliseconds thereafter. 
+	activateIntervalSetter()}
 
 function activateIntervalSetter(){
 	intervalSetter = setInterval(function(){inGameActions()},240)
@@ -150,20 +142,44 @@ function getRedPlayerSquareNums(){
 	return redCircleNums
 }
 
+// The human can exit one side of the board and re-emerge on the other side. 
 function moveGreenCircle(directionOfTravel) {
-		if(directionOfTravel == "UP"){
+		var currentSquare = circleObjects[0].squareNum
+		// Clicks 'up' and on top row
+		if(directionOfTravel == "UP" && currentSquare > 7){
 			circleObjects[0].squareNum -= 8
 		}
-		if(directionOfTravel == "DOWN"){
+		// Clicks 'up' and not on top row
+		if(directionOfTravel == "UP" && currentSquare <= 7){
+			circleObjects[0].squareNum += 56
+		}
+		// Clicks 'down' and on bottom row
+		if(directionOfTravel == "DOWN" && currentSquare >= 56){
+			circleObjects[0].squareNum -= 56
+		}
+		// Clicks 'down' and not on bottom row
+		if(directionOfTravel == "DOWN" && currentSquare < 56){
 			circleObjects[0].squareNum += 8
 		}
-		if(directionOfTravel == "LEFT"){
-			circleObjects[0].squareNum -= 1
+		// Clicks 'left' and on leftmost row
+		var leftNums = [0, 8, 16, 24, 32, 40, 48, 56]
+		if(directionOfTravel == "LEFT" && leftNums.includes(currentSquare)){
+			circleObjects[0].squareNum += 7
 		}
-		if(directionOfTravel == "RIGHT"){
+		// Clicks 'left' and not on leftmost row
+		if(directionOfTravel == "LEFT" && (!leftNums.includes(currentSquare))){
+			circleObjects[0].squareNum -= 1
+			}
+		// Clicks 'right' and on rightmost row
+		var rightNums = [7, 15, 23, 31, 39, 47, 55, 63]
+		if(directionOfTravel == "RIGHT" && (rightNums.includes(currentSquare))){
+			circleObjects[0].squareNum -= 7
+		}
+		if(directionOfTravel == "RIGHT" && (!rightNums.includes(currentSquare))){
 			circleObjects[0].squareNum += 1
 		}
-}
+	}
+
 
 function isHumanMoveValid(directionOfMovement){
 	var currentSquareNumber = circleObjects[0].squareNum
