@@ -42,8 +42,7 @@ function updateBoardView(){
 		count++
 	}
 }
-
-// This function is only called when the human player attempts an initial move. 
+ 
 function startGame(userChoice){
 	if (userChoice == "RELOAD") {
 		location.reload()
