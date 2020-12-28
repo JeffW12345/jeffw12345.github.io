@@ -12,7 +12,7 @@ body {background-color: black;}
 
 #title-word-two{color: #228B22;}
 
-#title-word-three{color: #ffcc00;}
+#title-word-three{color: #ffa135;}
 				
 #title-word-four{color: white;font-family: comic-sans;font-size: 130px;}
 
@@ -43,10 +43,10 @@ body {background-color: black;}
    border: 1px white solid;
 }
 
-.gold-circle{
+.orange-circle{
      width: 76px;
      height: 76px;
-	 background: #ffcc00;
+	 background: #ffa135;
      border-radius: 50%
     }
 
