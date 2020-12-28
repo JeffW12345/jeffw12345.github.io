@@ -28,8 +28,6 @@ body {background-color: black;}
    background-color: black;
    flex-wrap: wrap;
    float:left;
-   max-width: 65%;
-   height:auto;
 }
 
 .square {
