@@ -174,6 +174,7 @@ function moveGreenCircle(directionOfTravel) {
 		if(directionOfTravel == "RIGHT" && (rightNums.includes(currentSquare))){
 			circleObjects[0].squareNum -= 7
 		}
+		// Clicks 'right' and not on rightmost row
 		if(directionOfTravel == "RIGHT" && (!rightNums.includes(currentSquare))){
 			circleObjects[0].squareNum += 1
 		}
