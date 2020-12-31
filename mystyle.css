@@ -23,7 +23,7 @@ body {background-color: black;}
 #canvas {
    position: static;
    width: 65vw;
-   height: 45vw;
+   height: 43vw;
    margin: 0 auto;
    justify-content: center;
    border: 1px white solid;
