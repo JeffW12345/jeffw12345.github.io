@@ -22,8 +22,8 @@ body {background-color: black;}
 
 #canvas {
    position: static;
-   width: 85vw;
-   height: 56vw;
+   width: 65vw;
+   height: 45vw;
    margin: 0 auto;
    justify-content: center;
    border: 1px white solid;
@@ -36,12 +36,12 @@ body {background-color: black;}
 .square {
    background-color: white;
    position: relative;
-   width: 5vw;
-   height: 5vw;
-   margin-left: 1vw;
-   margin-right: 1vw;
-   margin-top: 1vw;
-   margin-bottom: 1vw;
+   width: 4vw;
+   height: 4vw;
+   margin-left: 0.5vw;
+   margin-right: 0.5vw;
+   margin-top: 0.5vw;
+   margin-bottom: 0.5vw;
    padding-top: 1vw;
    padding-left: 1vw;
    padding-right: 1vw;
@@ -50,28 +50,28 @@ body {background-color: black;}
 }
 
 .orange-circle{
-     width: 5vw;
-     height: 5vw;
+     width: 4vw;
+     height: 4vw;
 	 background: #ffa135;
      border-radius: 50%
     }
 
 .green-circle{
-     width: 5vw;
-     height: 5vw;
+     width: 4vw;
+     height: 4vw;
      background: #228B22;
      border-radius: 50%
     }
 .red-circle{
-    width: 5vw;
-     height: 5vw;
+    width: 4vw;
+     height: 4vw;
      background: red;
      border-radius: 50%
     }
 
 .black-circle{
-     width: 5vw;
-     height: 5vw;
+     width: 4vw;
+     height: 4vw;
      background: black;
      border-radius: 50%
     }
