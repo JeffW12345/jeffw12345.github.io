@@ -1,19 +1,21 @@
 // In the 'board' array below, the first entry represents the square at the top left row, then next one the next square to the left, etc.
 // Green = contains a green circle, etc. 
-var board = ["green","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty",
+var board = ["red","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty",
 "empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty",
-"empty", "empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty", "empty",
-"empty","empty","empty","empty","empty","empty","empty","red","empty","empty","empty","empty","empty","empty","orange"] 
+"empty", "empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","orange","empty","empty", "empty",
+"empty", "empty", "empty", "empty","green"] 
 var gameInProgress = false 
 var humanDirection = "NO MOVEMENT"
 var circleObjects = [] // To store human player, computer player and orange circle (prize) objects.
-circleObjects[0] = {colour: 'green', squareNum: 0} // Human player
-circleObjects[1] = {colour: 'orange', squareNum: 63} // Gold square (human wins points on reaching this square)
-circleObjects[2] = {colour: 'red', squareNum: 56} // Red square - computer player (human's opponent)
+circleObjects[0] = {colour: 'green', squareNum: 53} // Human player
+circleObjects[1] = {colour: 'orange', squareNum: 45} // Gold square (human wins points on reaching this square)
+circleObjects[2] = {colour: 'red', squareNum: 0} // Red square - computer player (human's opponent)
 var millisecondsElapsed = 0
 var score = 0
 var numberOfComputerOpponents = 1
 var intervalSetter
+var farRightColSquareNums = [8, 17, 26, 35, 44, 53]
+var farLeftColSquareNums = [0, 9, 18, 27, 36, 45]
 
 function createInitialBoard(){
 	for(square of board){
@@ -27,6 +29,7 @@ function createInitialBoard(){
 // Used to re-populate the board after pieces have moved. 
 function updateBoardView(){
 	var boardDivs = document.getElementsByClassName("square")
+	console.log(boardDivs[45])
 	var count = 0
 	for(square of board){
 		if (square == "empty") {
@@ -84,6 +87,7 @@ function inGameActions(){
 			updateBoardRepresentation()}
 		updateBoardView() // Re-populates the board
 		humanDirection = "NO MOVEMENT" // Resetting human movement to stationary post-move
+		console.log(humanDirection)
 		millisecondsElapsed += 240
 		// Stops the function from running every 200 milliseconds if the player has been eliminated
 		if(!gameInProgress){
@@ -103,7 +107,7 @@ function updateBoardRepresentation(){
 	var redPlayerSquareNums =  getRedPlayerSquareNums()
 	var allOccupiedSquares = getAllOccupiedSquares()
 	var i
-	for (i = 0; i < 64; i++){
+	for (i = 0; i < 54; i++){
 		if(i == humanSquareNum){
 			board[i] = "green"
 		}
@@ -141,41 +145,39 @@ function getRedPlayerSquareNums(){
 	return redCircleNums
 }
 
+
 // The human can exit one side of the board and re-emerge on the other side. 
 function moveGreenCircle(directionOfTravel) {
 		var currentSquare = circleObjects[0].squareNum
 		// Clicks 'up' and on top row
-		if(directionOfTravel == "UP" && currentSquare > 7){
-			circleObjects[0].squareNum -= 8
+		if(directionOfTravel == "UP" && currentSquare > 8){
+			circleObjects[0].squareNum -= 9
 		}
 		// Clicks 'up' and not on top row
-		if(directionOfTravel == "UP" && currentSquare <= 7){
-			circleObjects[0].squareNum += 56
+		if(directionOfTravel == "UP" && currentSquare <= 8){
+			circleObjects[0].squareNum += 45
 		}
 		// Clicks 'down' and on bottom row
-		if(directionOfTravel == "DOWN" && currentSquare >= 56){
-			circleObjects[0].squareNum -= 56
+		if(directionOfTravel == "DOWN" && currentSquare >= 45){
+			circleObjects[0].squareNum -= 45
 		}
 		// Clicks 'down' and not on bottom row
-		if(directionOfTravel == "DOWN" && currentSquare < 56){
-			circleObjects[0].squareNum += 8
+		if(directionOfTravel == "DOWN" && currentSquare < 45){
+			circleObjects[0].squareNum += 9
 		}
 		// Clicks 'left' and on leftmost row
-		var leftNums = [0, 8, 16, 24, 32, 40, 48, 56]
-		if(directionOfTravel == "LEFT" && leftNums.includes(currentSquare)){
-			circleObjects[0].squareNum += 7
+		if(directionOfTravel == "LEFT" && farLeftColSquareNums.includes(currentSquare)){
+			circleObjects[0].squareNum += 8
 		}
 		// Clicks 'left' and not on leftmost row
-		if(directionOfTravel == "LEFT" && (!leftNums.includes(currentSquare))){
+		if(directionOfTravel == "LEFT" && (!farLeftColSquareNums.includes(currentSquare))){
 			circleObjects[0].squareNum -= 1
 			}
 		// Clicks 'right' and on rightmost row
-		var rightNums = [7, 15, 23, 31, 39, 47, 55, 63]
-		if(directionOfTravel == "RIGHT" && (rightNums.includes(currentSquare))){
-			circleObjects[0].squareNum -= 7
+		if(directionOfTravel == "RIGHT" && (farRightColSquareNums.includes(currentSquare))){
+			circleObjects[0].squareNum -= 8
 		}
-		// Clicks 'right' and not on rightmost row
-		if(directionOfTravel == "RIGHT" && (!rightNums.includes(currentSquare))){
+		if(directionOfTravel == "RIGHT" && (!farRightColSquareNums.includes(currentSquare))){
 			circleObjects[0].squareNum += 1
 		}
 	}
@@ -187,11 +189,9 @@ function isHumanMoveValid(directionOfMovement){
 	var onTopRow = currentSquareNumber <= 7
 	if (onTopRow && directionOfMovement == "UP")
 		{return false}
-	var farLeftColSquareNums = [0, 8, 16, 24, 32, 40, 48, 56]
 	var onFarLeftCol = farLeftColSquareNums.includes(currentSquareNumber)
 	if (onFarLeftCol && directionOfMovement == "LEFT") 
 		{return false}
-	var farRightColSquareNums = [7, 15, 23, 31, 39, 47, 55, 63]
 	var onFarRightCol = farRightColSquareNums.includes(currentSquareNumber)
 	if (onFarRightCol && directionOfMovement == "RIGHT")
 		{return false}
@@ -215,13 +215,14 @@ function setNewSquare(spriteObject, directionOfTravel){
 	//console.log("Existing square " + existingSquare)
 	var newSquare  = 0
 	if (directionOfTravel == "NO MOVEMENT") {newSquare = existingSquare}
-	if (directionOfTravel == "UP") {newSquare += (existingSquare - 8)}
-	if (directionOfTravel == "DOWN") {newSquare += (existingSquare + 8)}
+	if (directionOfTravel == "UP") {newSquare += (existingSquare - 9)}
+	if (directionOfTravel == "DOWN") {newSquare += (existingSquare + 9)}
 	if (directionOfTravel == "LEFT") {newSquare += (existingSquare - 1)}
 	if (directionOfTravel == "RIGHT") {newSquare += (existingSquare + 1)}
 	//console.log("New square " + newSquare)
 	spriteObject.squareNum = newSquare
 }
+
 
 function getDirection(spriteObject){
 	if (!doesValidMoveExist(spriteObject)){return "NO MOVEMENT"}
@@ -242,20 +243,18 @@ function isProposedComputerMoveValid(spriteObject, directionAsInt){
 	var currentSquareNumber = spriteObject.squareNum
 	// Checks situations where the move would be out of bounds
 	// Check for 'up' first. 
-	var onTopRow = currentSquareNumber <= 7
+	var onTopRow = currentSquareNumber <= 8
 	if (onTopRow && directionAsInt == 0)
 		{return false}
 	// Down
-	var onBottomRow = (currentSquareNumber >= 56 && currentSquareNumber <= 63)
+	var onBottomRow = (currentSquareNumber >= 45)
 	if (onBottomRow && directionAsInt == 1)
 		{return false}
 	// Left
-	var farLeftColSquareNums = [0, 8, 16, 24, 32, 40, 48, 56]
 	var onFarLeftCol = farLeftColSquareNums.includes(currentSquareNumber)
 	if (onFarLeftCol && directionAsInt == 2)
 		{return false}
 	// Right
-	var farRightColSquareNums = [7, 15, 23, 31, 39, 47, 55, 63]
 	var onFarRightCol = farRightColSquareNums.includes(currentSquareNumber)
 	if (onFarRightCol && directionAsInt == 3)
 		{return false}
@@ -264,17 +263,17 @@ function isProposedComputerMoveValid(spriteObject, directionAsInt){
 	// Check for 'up' first. 
 	var redPlayerNums = getRedPlayerSquareNums()
 	var orangeCircleNum = circleObjects[1].squareNum
-	if (directionAsInt == 0 &&  redPlayerNums.includes(currentSquareNumber - 8)) {
+	if (directionAsInt == 0 &&  redPlayerNums.includes(currentSquareNumber - 9)) {
 		return false
 	}	
-	if (directionAsInt == 0 && orangeCircleNum == (currentSquareNumber - 8)) {
+	if (directionAsInt == 0 && orangeCircleNum == (currentSquareNumber - 9)) {
 		return false
 	}
 	// Down
-	if (directionAsInt == 1 &&  redPlayerNums.includes(currentSquareNumber + 8)) {
+	if (directionAsInt == 1 &&  redPlayerNums.includes(currentSquareNumber + 9)) {
 		return false
 	}	
-	if (directionAsInt == 1 && orangeCircleNum == (currentSquareNumber + 8)) {
+	if (directionAsInt == 1 && orangeCircleNum == (currentSquareNumber + 9)) {
 		return false
 	}	
 	// Left
@@ -298,14 +297,12 @@ function isProposedComputerMoveValid(spriteObject, directionAsInt){
 function doesValidMoveExist(redPlayer){
 	currentSquareNumber = redPlayer.squareNum
 	// Is a move to the left possible?
-	var farLeftColSquareNums = [0, 8, 16, 24, 32, 40, 48, 56]
 	var onFarLeftCol = farLeftColSquareNums.includes(currentSquareNumber)
 	if (!onFarLeftCol){
 		if(board[currentSquareNumber - 1] != "red" && board[currentSquareNumber - 1] != "orange"){
 		return true}
 	}
 	// Is a move to the right possible?
-	var farRightColSquareNums = [7, 15, 23, 31, 39, 47, 55, 63]
 	var onFarRightCol = farRightColSquareNums.includes(currentSquareNumber)
 	if (!onFarRightCol) {
 		if(board[currentSquareNumber + 1] != "red" && board[currentSquareNumber + 1] != "orange"){
@@ -328,7 +325,7 @@ function doesValidMoveExist(redPlayer){
 
 function findFreeSquare(){
 	while (true){
-		var attempt = Math.floor(Math.random() * 64)
+		var attempt = Math.floor(Math.random() * 53)
 		if(board[attempt] == "empty"){
 			return attempt;
 		}
