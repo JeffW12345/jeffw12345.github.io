@@ -16,16 +16,13 @@ body {background-color: black;}
 				
 #title-word-four{color: white;font-family: comic-sans;font-size: 130px;}
 
-#canvas-container{
-	display: flex;
-	justify-content: center;}
-
 #canvas {
+   background-color: red;
    position: static;
-   width: 65vw;
-   height: 43vw;
-   margin: 0 auto;
-   justify-content: center;
+   width: 777px;
+   height: 777px;
+   margin-left: 100px;
+   margin-top: 10px;
    border: 1px white solid;
    display: flex;
    background-color: black;
@@ -36,53 +33,50 @@ body {background-color: black;}
 .square {
    background-color: white;
    position: relative;
-   width: 4vw;
-   height: 4vw;
-   margin-left: 0.5vw;
-   margin-right: 0.5vw;
-   margin-top: 0.5vw;
-   margin-bottom: 0.5vw;
-   padding-top: 1vw;
-   padding-left: 1vw;
-   padding-right: 1vw;
-   padding-bottom: 1vw;
+   width: 75px;
+   height: 75px;
+   margin-left: 7.5px;
+   margin-right: 7.5px;
+   margin-top: 7.5px;
+   margin-bottom: 7.5px;
+   padding: 2.5px 2.5px 2.5px 2.5px;
    border: 1px white solid;
 }
 
 .orange-circle{
-     width: 4vw;
-     height: 4vw;
+     width: 76px;
+     height: 76px;
 	 background: #ffa135;
      border-radius: 50%
     }
 
 .green-circle{
-     width: 4vw;
-     height: 4vw;
+     width: 75px;
+     height: 75px;
      background: #228B22;
      border-radius: 50%
     }
 .red-circle{
-    width: 4vw;
-     height: 4vw;
+     width: 75px;
+     height: 75px;
      background: red;
      border-radius: 50%
     }
 
 .black-circle{
-     width: 4vw;
-     height: 4vw;
+     width: 75px;
+     height: 75px;
      background: black;
      border-radius: 50%
     }
 	
 footer {
+  margin-top: 47rem;
   font-size: 15px;
   font-family: tahoma;
   color: white;
   font-style: italic;
   color: aqua;
-  text-align: left;
 }
 
 a:link {
