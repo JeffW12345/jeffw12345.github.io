@@ -128,6 +128,65 @@ body {background-color: black;}
     }
 }
 
+@media only screen and (min-height: 650px){
+
+#canvas {
+   background-color: red;
+   position: relative;
+   width: 314px;
+   height: 314px;
+   margin-left: 0px;
+   margin-right: 0px;
+   margin-top: 3px;
+   border: 0.5px white solid;
+   display: flex;
+   background-color: black;
+   flex-wrap: wrap;
+   float:left;
+}
+
+.square {
+   background-color: white;
+   position: relative;
+   width: 29px;
+   height: 29px;
+   margin-left: 3px;
+   margin-right: 3px;
+   margin-top: 3px;
+   margin-bottom: 3px;
+   padding: 1px 1px 1px 1px;
+   border: 0.4px white solid;
+}
+
+.orange-circle{
+     width: 29px;
+     height: 29px;
+	 background: #ffa135;
+     border-radius: 50%
+    }
+
+.green-circle{
+     width: 29px;
+     height: 29px;
+     background: #228B22;
+     border-radius: 50%
+    }
+.red-circle{
+     width: 29px;
+     height: 29px;
+     background: red;
+     border-radius: 50%
+    }
+
+.black-circle{
+     width: 29px;
+     height: 29px;
+     background: black;
+     border-radius: 50%
+    }
+}
+
+
 footer {
   font-size: 15px;
   font-family: tahoma;
