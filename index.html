@@ -4,7 +4,8 @@
 	<title>Chase The Dots...</title>
 	<meta name="keywords" content="game, dots, JavaScript">
 	<meta name="description" content="Capture as many dots as possible before another dot captures your dot. A simple JavaScript based one player game.">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="HandheldFriendly" content="true" />
 	<link rel="stylesheet" type="text/css" href="mystyle.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -50,6 +51,12 @@
 		document.getElementById("DOWN").addEventListener("click", function() {startGame("DOWN")})
 		document.getElementById("LEFT").addEventListener("click", function() {startGame("LEFT")})
 		document.getElementById("RIGHT").addEventListener("click", function() {startGame("RIGHT")})
+		// from https://stackoverflow.com/questions/11689353/disable-pinch-zoom-on-mobile-web
+		document.addEventListener('gestureend', function(e) {
+    		e.preventDefault();
+    		// special hack to prevent zoom-to-tabs gesture in safari
+    		document.body.style.zoom = 0.99;
+		});
 		} 
 		</script>
 		<br>
