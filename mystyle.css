@@ -23,6 +23,7 @@ body {background-color: black;}
    height: 777px;
    margin-left: 100px;
    margin-top: 10px;
+   margin-bottom: 30px;
    border: 1px white solid;
    display: flex;
    background-color: black;
