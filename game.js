@@ -50,7 +50,7 @@ function startGame(userChoice){
 	humanDirection = userChoice
 	gameInProgress = true  
 	clearInterval(intervalSetter)  // Removes an interval setter if one in place, to prevent multiple threads. 
-	activateIntervalSetter()} // Interval setter to make inGameActions() run every 240 seconds. 
+	activateIntervalSetter()} // Interval setter to make inGameActions() run every 240 milliseconds. 
 
 function activateIntervalSetter(){
 	intervalSetter = setInterval(function(){inGameActions()},240)
