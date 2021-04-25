@@ -181,26 +181,6 @@ function moveGreenCircle(directionOfTravel) {
 	}
 
 
-function isHumanMoveValid(directionOfMovement){
-	var currentSquareNumber = circleObjects[0].squareNum
-	// Checks situations where the move would be out of bounds
-	var onTopRow = currentSquareNumber <= 7
-	if (onTopRow && directionOfMovement == "UP")
-		{return false}
-	var farLeftColSquareNums = [0, 8, 16, 24, 32, 40, 48, 56]
-	var onFarLeftCol = farLeftColSquareNums.includes(currentSquareNumber)
-	if (onFarLeftCol && directionOfMovement == "LEFT") 
-		{return false}
-	var farRightColSquareNums = [7, 15, 23, 31, 39, 47, 55, 63]
-	var onFarRightCol = farRightColSquareNums.includes(currentSquareNumber)
-	if (onFarRightCol && directionOfMovement == "RIGHT")
-		{return false}
-	var onBottomRow = (currentSquareNumber >= 56 && currentSquareNumber <= 63)
-	if (onBottomRow && directionOfMovement == "DOWN")
-		{return false}
-	return true
-	} 
-
 function makeComputerMove(){
 	for (spriteObject of circleObjects){
 		if (spriteObject.colour != 'red') {continue}
