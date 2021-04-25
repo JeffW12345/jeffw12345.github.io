@@ -76,7 +76,7 @@ function inGameActions(){
 			gameInProgress = false
 		}
 		updateBoardRepresentation()
-		// New computer opponent added approximately every 20 seconds till there are 4 computer opponents.
+		// New computer opponent added approximately every 30 seconds till there are 4 computer opponents.
 		if (millisecondsElapsed % 30000 == 0 && numberOfComputerOpponents < 4 && gameInProgress && millisecondsElapsed > 0){
 			squareForNewPlayer = findFreeSquare()
 			newComputerPlayer(squareForNewPlayer)
