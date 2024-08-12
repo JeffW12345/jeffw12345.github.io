@@ -1,9 +1,16 @@
 // In the 'board' array below, the first entry represents the square at the top left row, then next one the next square to the left, etc.
 // Green = contains a green circle, etc. 
-var board = ["green","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty",
-"empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty",
-"empty", "empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty", "empty",
-"empty","empty","empty","empty","empty","empty","empty","red","empty","empty","empty","empty","empty","empty","orange"] 
+var board = [
+	"green","empty","empty","empty","empty","empty","empty","empty",
+	"empty","empty","empty","empty","empty","empty","empty","empty",
+	"empty","empty","empty","empty","empty","empty","empty","empty",
+	"empty","empty","empty","empty","empty","empty","empty","empty",
+	"empty", "empty","empty","empty","empty","empty","empty","empty",
+	"empty","empty","empty","empty","empty","empty","empty","empty", 
+	"empty", "empty","empty","empty","empty","empty","empty","empty",
+	"red","empty","empty","empty","empty","empty","empty","orange"
+] 
+
 var gameInProgress = false 
 var humanDirection = "NO MOVEMENT"
 var circleObjects = [] // To store human player, computer player and orange circle (prize) objects.
