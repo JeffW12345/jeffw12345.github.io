@@ -1,16 +1,34 @@
-function eventHandlers() {
-    document.getElementById("RESTART").addEventListener("click", function() { startGame("RELOAD"); });
-    document.getElementById("UP").addEventListener("click", function() { startGame("UP"); });
-    document.getElementById("DOWN").addEventListener("click", function() { startGame("DOWN"); });
-    document.getElementById("LEFT").addEventListener("click", function() { startGame("LEFT"); });
-    document.getElementById("RIGHT").addEventListener("click", function() { startGame("RIGHT"); });
-    
-    // Prevent pinch-zoom on mobile
-    document.addEventListener('gestureend', function(e) {
-        e.preventDefault();
-        // Special hack to prevent zoom-to-tabs gesture in Safari
-        document.body.style.zoom = 0.99;
-    });
+export function handleKeyPress(e, movePlayer) {
+  switch (e.key) {
+    case 'ArrowUp':
+      movePlayer(0, -1);
+      break;
+    case 'ArrowDown':
+      movePlayer(0, 1);
+      break;
+    case 'ArrowLeft':
+      movePlayer(-1, 0);
+      break;
+    case 'ArrowRight':
+      movePlayer(1, 0);
+      break;
+  }
 }
 
-eventHandlers();
+export function handleButtonPress(direction, movePlayer) {
+  switch (direction) {
+    case 'ArrowUp':
+      movePlayer(0, -1);
+      break;
+    case 'ArrowDown':
+      movePlayer(0, 1);
+      break;
+    case 'ArrowLeft':
+      movePlayer(-1, 0);
+      break;
+    case 'ArrowRight':
+      movePlayer(1, 0);
+      break;
+  }
+}
+
