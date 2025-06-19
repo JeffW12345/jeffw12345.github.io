@@ -1,55 +1,82 @@
-<!doctype HTML>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<title>Chase The Dots...</title>
-	<meta name="keywords" content="game, dots, JavaScript">
-	<meta name="description" content="Capture as many dots as possible before another dot captures your dot. A simple JavaScript based one player game.">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-	<meta name="HandheldFriendly" content="true" />
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	<script type = "text/javascript" src="game.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Circle Game</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background: black;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+    #game-container {
+      display: grid;
+      grid-template-columns: repeat(8, 50px);
+      grid-template-rows: repeat(8, 50px);
+      gap: 2px;
+      justify-content: center;
+      margin: 20px auto;
+    }
+
+    .square {
+      width: 50px;
+      height: 50px;
+      background-color: #222;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .green-circle, .red-circle, .orange-circle, .black-circle {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+    }
+
+    .green-circle { background-color: green; }
+    .red-circle { background-color: red; }
+    .orange-circle { background-color: orange; }
+    .black-circle { background-color: black; }
+
+    #controls {
+      margin-top: 20px;
+    }
+
+    #controls button {
+      padding: 8px 16px;
+      margin: 5px;
+      font-size: 16px;
+    }
+
+    #score {
+      font-size: 24px;
+      color: orange;
+    }
+
+    #end-of-game-message {
+      color: red;
+      font-weight: bold;
+      margin-top: 15px;
+    }
+  </style>
 </head>
 <body>
-	<div id="title-container">
-	<span id="title-word-one" class="title-name"><em>Chase&nbsp</em></span>
-	<span id="title-word-two" class="title-name">The&nbsp</span>
-	<span id="title-word-three" class="title-name">Dots</span>
-	<span id="title-word-four" class="title-name">...</span>
-	</div>
-	
-	<div id="canvasContainer">
-		<div id="canvas">
-			<script type="text/javascript"> createInitialBoard(); </script>
-		</div>
-	</div>
+  <div id="score">Score: 0</div>
+  <div id="game-container"></div>
+  <div id="controls">
+    <button id="RESTART">RESTART</button><br/>
+    <button id="UP">UP</button><br/>
+    <button id="LEFT">LEFT</button>
+    <button id="RIGHT">RIGHT</button><br/>
+    <button id="DOWN">DOWN</button>
+  </div>
+  <div id="end-of-game-message"></div>
 
-	
-	<div id="buttons">
-		<button id="UP">UP</button>
-		<br>
-		<button id="LEFT">LEFT</button> &nbsp 
-		<button id="RIGHT">RIGHT</button>
-		<br>
-		<button id="DOWN">DOWN</button>
-		<br><br>
-		<button id="RESTART">RESTART</button>
-		<br><br>
-		<div id="instructions">
-			You are the green player.<br><br>
-			Reach an orange circle = 10 points. <br><br>
-			Red circle reaches you = you lose. <br><br>
-			The game starts when you move.<br><br>
-			Good luck! 
-		</div>
-		<br>
-		<div id="score"></div>
-		<div id="message1"></div>
-		<div id="end-of-game-message"></div> 
-		<!-- Event handling code -->
-		<script src="eventHandlers.js"></script>
-		<br>
-		<footer> Website designed by <a href="http://www.linkedin.com/in/jeff-waters-6220657a/"> Jeff Waters</a>.</footer>
-		<br>
-	</div>
+  <script src="eventHandlers.js"></script>
+  <script src="game.js"></script>
 </body>
 </html>
