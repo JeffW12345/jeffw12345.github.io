@@ -1,76 +1,193 @@
+/* Default styles for larger screens */
 body {
-  background: black;
-  color: white;
-  font: 16px sans-serif;
-}
-/* Center everything */
-wrapper { max-width: 1200px; margin: 0 auto; padding: 20px; }
-
-/* Title styling */
-header h1 { display: flex; align-items: baseline; font-size: 4rem; }
-.red { color: red; font-style: italic; }
-.green { color: green; }
-.orange { color: orange; }
-.dots { font-size:1.2em; }
-
-/* Main layout: board on left, sidebar on right */
-.main {
-  display: flex;
-  align-items: flex-start;
+  background-color: black;
+  margin: 0; /* Remove default margins */
 }
 
-/* Game board = 8x8 grid */
-#game-board {
-  display: grid;
-  grid-template-columns: repeat(8, 60px);
-  grid-template-rows: repeat(8, 60px);
-  gap: 4px;
-  background: white;
-  padding: 4px;
-}
-
-/* Individual squares */
-.square {
-  position: relative;
-  background: white;
-  width: 60px;
-  height: 60px;
-}
-
-/* Circles */
-.green-circle, .red-circle, .orange-circle, .black-circle {
-  position: absolute;
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  top: 7px;
-  left: 7px;
-}
-.green-circle { background: green; }
-.red-circle { background: red; }
-.orange-circle { background: orange; }
-.black-circle { background: black; }
-
-/* Sidebar controls */
-#sidebar {
-  margin-left: 40px;
-}
-#controls button {
-  width: 80px;
-  margin: 4px;
-  padding: 8px;
-}
-#instructions {
-  margin-top: 20px;
-  color: #ccc;
-}
-#score {
-  margin-top: 20px;
-  font-size: 1.2rem;
-  color: orange;
-}
-footer {
-  margin: 30px 0 0;
+#title-container {
+  width: 100%;
   text-align: center;
+  height: 20vh;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
 }
-footer a { color: white; }
+
+.title-name {
+  font-family: 'Arial', cursive;
+  font-size: 8vw;
+  white-space: nowrap;
+}
+
+#title-word-one {
+  color: red;
+}
+
+#title-word-two {
+  color: #228B22;
+}
+
+#title-word-three {
+  color: #ffa135;
+}
+
+#title-word-four {
+  color: white;
+  font-family: 'Comic Sans MS', cursive;
+}
+
+#canvasContainer {
+  background-color: black;
+  position: static;
+  width: 75vw;
+  height: 75vh;
+  margin-left: 0vw;
+  display: flex;
+  flex-wrap: wrap;
+  float: left;
+  justify-content: center;
+}
+
+#canvas {
+  background-color: black;
+  width: 75vh;
+  height: 75vh;
+  margin: 0 auto;
+  border: 1px solid white;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0.69vh 0.4vh 0.69vh 0.99vh;
+}
+
+.square {
+   background-color: rgb(255, 255, 255);
+   position: relative;
+   width: 6.2vh;
+   height: 6.2vh;
+   margin-left: 0.74vh;
+   margin-right:0.73vh;
+   margin-top: 0.69vh;
+   margin-bottom: 0.69vh;
+   padding: 0.69vh 0.69vh 0.69vh 0.69vh;
+   border: 1px white solid;
+}
+
+.orange-circle {
+  width: 6vh;
+  height: 6vh;
+  background: #ffa135;
+  border-radius: 50%;
+}
+
+.green-circle {
+  width: 6vh;
+  height: 6vh;
+  background: #228B22;
+  border-radius: 50%;
+}
+
+.red-circle {
+  width: 6vh;
+  height: 6vh;
+  background: red;
+  border-radius: 50%;
+}
+
+.black-circle {
+  width: 6vh;
+  height: 6vh;
+  background: black;
+  border-radius: 50%;
+}
+
+/* Button container styles */
+#buttons {
+  text-align: center;
+  width: 200px;
+  height: auto; /* Adjust height automatically based on content */
+  float: left;
+  margin-left: 30px;
+  margin-top: 10px;
+  font-size: 30px;
+}
+
+/* Instruction text */
+#instructions {
+  color: white;
+  text-align: left;
+  font-size: 2vh;
+  font-family: tahoma;
+}
+
+/* Score text */
+#score {
+  color: white;
+  text-align: left;
+  font-size: 25px;
+  font-family: tahoma;
+  font-weight: bold;
+}
+
+/* Message texts */
+#message1, #end-of-game-message {
+  color: white;
+  text-align: left;
+  font-size: 17px;
+  font-family: tahoma;
+}
+
+/* Footer styling */
+footer {
+  color: white;
+  text-align: center;
+  font-size: 14px;
+}
+
+
+
+/* Media query for tablets and mobiles */
+@media only screen and (max-width: 1024px) {
+
+  #canvasContainer {
+    width: 100vw; /* Full width of the viewport */
+    height: 100vw; /* Adjust height as needed for square shape */
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+  }
+
+  #canvas {
+    width: 90vw; 
+    height: 90vw; /* Make height equal to width for square shape */
+    margin: 0; /* Remove margin */
+    padding: 0; /* Remove padding */
+    border: 0.5vw solid white; /* Adjust border thickness */
+  }
+
+  .square {
+    width: 6.0vw; /* Adjust square size for smaller screens */
+    height: 6.0vw; /* Adjust square size for smaller screens */
+    margin-left: 1.2vw;
+    margin-right: 1vw;
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+    padding: 1vw;
+    border: 0.5vw solid white; /* Adjust border thickness */
+  }
+
+  .orange-circle, .green-circle, .red-circle, .black-circle {
+    width: 6vw; /* Adjust circle size for smaller screens */Add commentMore actions
+    height: 6vw; /* Adjust circle size for smaller screens */
+  }
+
+
+  /* Adjust instructions and score text sizes */
+  #instructions {
+    font-size: 5vw;
+    white-space: nowrap;
+  }
+
+  #score {
+    font-size: 5vw;
+  }
+}
