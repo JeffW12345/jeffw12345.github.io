@@ -1,3 +1,4 @@
+
 // In the 'board' array below, the first entry represents the square at the top left row, then next one the next square to the left, etc.
 // Green = contains a green circle, etc. 
 var board = [
