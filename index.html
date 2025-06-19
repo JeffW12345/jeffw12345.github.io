@@ -3,42 +3,46 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Chase the Dots</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>Chase The Dots...</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="game-wrapper">
-    <div class="header">
-      <h1><span class="red">Chase</span> <span class="green">The</span> <span class="orange">Dots</span><span class="dots">...</span></h1>
-    </div>
-    <div class="game-area">
-      <canvas id="gameCanvas" width="500" height="500"></canvas>
-      <div class="controls">
-        <div class="arrow-controls">
-          <button id="upBtn">UP</button>
-          <div>
-            <button id="leftBtn">LEFT</button>
-            <button id="rightBtn">RIGHT</button>
-          </div>
-          <button id="downBtn">DOWN</button>
-        </div>
-        <button id="restartBtn">RESTART</button>
-        <p id="score">Score: 0</p>
+
+<div class="wrapper">
+  <header>
+    <h1><em class="red">Chase </em><span class="green">The </span><span class="orange">Dots</span><span class="dots">...</span></h1>
+  </header>
+
+  <div class="main">
+    <div id="game-board"></div>
+
+    <div id="sidebar">
+      <div id="controls">
+        <button id="UP">UP</button><br>
+        <button id="LEFT">LEFT</button>
+        <button id="RIGHT">RIGHT</button><br>
+        <button id="DOWN">DOWN</button><br><br>
+        <button id="RESTART">RESTART</button><br><br>
       </div>
-      <div class="instructions">
-        <p>You are the green player.</p>
-        <p>Reach an orange circle = 10 points.</p>
-        <p>Red circle reaches you = you lose.</p>
-        <p>The game starts when you move.</p>
-        <p><strong>Good luck!</strong></p>
+      <div id="instructions">
+        You are the green player.<br><br>
+        Reach an orange circle = 10 points.<br><br>
+        Red circle reaches you = you lose.<br><br>
+        The game starts when you move.<br><br>
+        Good luck!
       </div>
+      <div id="score">Score: 0</div>
     </div>
-    <footer>
-      <p>Website designed by <a href="#">Jeff Waters</a>.</p>
-    </footer>
   </div>
 
-  <script type="module" src="game.js"></script>
+  <footer>
+    Website designed by <a href="…">Jeff Waters</a>.
+  </footer>
+</div>
+
+<script src="game.js"></script>
+<script src="eventHandlers.js"></script>
 </body>
 </html>
+
 
